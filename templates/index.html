@@ -7,56 +7,45 @@
 </head>
 <body>
     <div class="container">
+        <!-- MAIN COUTAINER(sign in part and sign up part)-->
         <div class="forms-container">
             <div class="signin-signup">
-                <form action="#" class="sign-in-form">
+                <form action="/signin/" class="sign-in-form" method="post">
                     <h3 class="title-a">This website analyzes legal cases across multiple countries and generates advisory reports in accordance with relevant data transfer and privacy laws </h3>
                     <h2 class="title">Log in </h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" placeholder="username" />
+                        <input type="text" placeholder="username" name="username"/>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="password" />
+                        <input type="password" placeholder="password" name="password"/>
                     </div>
                     <input type="submit" value="Login" class="btn solid" />
                     <p class="social-text">or you can visit this site as guest</p>
                     <input type="submit" value="Guset Model" class="btn solid" />
                 </form>
-                <form action="#" class="sign-up-form">
+                <form action="/signup/" class="sign-up-form" method="post">
                     <h2 class="title">register</h2>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" placeholder="username" />
+                        <input type="text" placeholder="username" name="newname"/>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
-                        <input type="email" placeholder="Email" />
+                        <input type="email" placeholder="Email" name="newemail"/>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="password" />
+                        <input type="password" placeholder="password" name="newpassword"/>
                     </div>
-                    <input type="submit" class="btn" value="register" />
-                    <p class="social-text">or what????</p>
-                    <div class="social-media">
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-google"></i>
-                        </a>
-                        <a href="#" class="social-icon">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
+                    <input type="submit" class="btn" value="Sign up" />
+                    <p class="social-text">text text text ????</p>
                 </form>
             </div>
+            <!-- MAIN COUTAINER(sign in part and sign up part)-->
         </div>
+         <!-- PANELS SWITCH -->
         <div class="panels-container">
             <div class="panel left-panel">
 
@@ -82,8 +71,11 @@
                 </div>
             </div>
         </div>
+         <!-- PANELS SWUTVH -->
     </div>
+   <!-- SCRIPTS -->
     <script src='https://kit.fontawesome.com/64d58efce2.js'></script>
     <script src="/static/js/script.js"></script>
+   <!-- SCRIPTS -->
 </body>
 </html>
