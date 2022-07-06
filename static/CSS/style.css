@@ -760,6 +760,8 @@ h6 { font-size: 16px; }
 	bottom: 100px;
 	left: 50%;
 	transform: translateX(-50%);
+    display: flex;
+    justify-content: space-between;
 }
 .edrea_tm_section{
 	position: absolute;
@@ -801,9 +803,17 @@ h6 { font-size: 16px; }
 	width: 100%;
 	min-height: 100%;
 	display: flex;
-	align-items: center;
+    align-items: center;
+    justify-content: space-between;
 }
-
+.edrea_tm_section .section_inner.container_text{
+    position: relative;
+	width: 180px;
+	height: auto;
+    white-space: normal;
+    word-break: break-all;
+    word-wrap: break-word;
+}
 /*---------------------------------------------------*/
 /*	05) EDREA HOME
 /*---------------------------------------------------*/
@@ -866,74 +876,11 @@ h6 { font-size: 16px; }
 /*	06) EDREA ABOUT
 /*---------------------------------------------------*/
 
-.edrea_tm_about{
-	width: 100%;
-	height: auto;
-	clear: both;
-	float: left;
-	display: flex;
-}
-.edrea_tm_about .left{
-	width: 40%;
-}
-.edrea_tm_about .left .image{
-	position: relative;
-}
-.edrea_tm_about .left .image img{
-	position: relative;
-	min-width: 100%;
-	opacity: 0;
-}
-.edrea_tm_about .left .image .main{
-	position: absolute;
-	top: 0px;
-	bottom: 0px;
-	left: 0px;
-	right: 0px;
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
-	border-radius: 10px;
-}
-.edrea_tm_about .right{
-	width: 60%;
-	padding-left: 100px;
-}
-.edrea_tm_about .right .short{
-	width: 100%;
-	float: left;
-	margin-bottom: 24px;
-	border-bottom: 1px dashed rgba(255,255,255,.15);
-	padding-bottom: 30px;
-}
-.edrea_tm_about .right .short .name{
-	text-transform: uppercase;
-	margin-bottom: 15px;
-	font-size: 40px;
-	font-weight: 700;
-}
-.edrea_tm_about .right .short .job{
-	font-size: 18px;
-	font-weight: 400;
-	color: #A2A2A2;
-}
-.edrea_tm_about .right .short .job b{
-	color: #fff;
-	font-weight: 400;
-}
-.edrea_tm_about .right .text{
-	width: 100%;
-	float: left;
-	margin-bottom: 36px;
-}
-.edrea_tm_about .right .text p{
-	margin-bottom: 15px;
-}
-.edrea_tm_about .right .text p:last-child{
-	margin-bottom: 0px;
-}
-.edrea_tm_about .right .text span{
-	color: #fff;
+.edrea_tm_about {
+    position: fixed;
+    left: 15%;
+    top: 25%;
+    bottom: 500px;
 }
 .coloring{color: var(--main-color);}
 .edrea_tm_modalbox{
