@@ -1103,6 +1103,7 @@ h6 { font-size: 16px; }
 	width: 100%;
 	float: left;
 	position: relative;
+    text-align: center;
 }
 .edrea_tm_modalbox .about_popup_details .left .list ul li i{
 	color: var(--main-color);
@@ -2121,6 +2122,7 @@ h6 { font-size: 16px; }
 }
 .edrea_tm_contact .fields .last{
 	width: 100%;
+    height: 300px;
 	float: left;
 	background-color: #222;
 	border-radius: 10px;
@@ -2456,3 +2458,9 @@ h6 { font-size: 16px; }
 	.edrea_tm_modalbox .news_popup_details .news_main_title h3{font-size: 20px;}
 	.edrea_tm_modalbox .news_popup_details .news_main_title{margin-bottom: 18px;}
 }
+.upload{position:relative;display:inline-flex}
+.upload input[type=file]
+{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;outline:none;cursor:pointer;z-index:-1}
+.upload.is-expanded{width:100%}
+.field.file.has-addons .button.is-static{color:#242424;background-color:#fff;border-left:0}
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none){.upload input[type=file]{z-index:auto}}
