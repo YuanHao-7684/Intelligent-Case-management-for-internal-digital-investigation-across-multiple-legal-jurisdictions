@@ -60,3 +60,9 @@ def Log(request):
 def Report(request):
     currentuser = "Hao Yuan"
     return render(request, 'caseReport.html', {'user': currentuser})
+
+
+#contact
+def contact(request):
+    currentuser="Hao Yuan"
+    return render(request,'contact.html',{'user': currentuser})
