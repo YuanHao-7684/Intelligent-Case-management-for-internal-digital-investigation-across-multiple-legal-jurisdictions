@@ -31,8 +31,8 @@
 					<ul class="transition_link">
 						<li><a href="/homepage/">Home</a></li>
 						<li><a href="/patternpage/">pattern</a></li>
-						<li class="active"><a href="/cases/">cases management</a></li>
-						<li><a href="/contact/">Contact and feedback</a></li>
+						<li><a href="/cases/">cases management</a></li>
+						<li class="active"><a href="/contact/">Contact and feedback</a></li>
                         <li>Hello {{user}} </li>
 					</ul>
 				</div>
@@ -49,8 +49,8 @@
 					<ul class="transition_link">
 						<li><a href="/homepage/">Home</a></li>
 						<li><a href="/patternpage/">pattern</a></li>
-						<li class="active"><a href="/cases/">cases management</a></li>
-						<li><a href="/contact/">Contact and feedback</a></li>
+						<li><a href="/cases/">cases management</a></li>
+						<li class="active"><a href="/contact/">Contact and feedback</a></li>
                         <li>Hello <span class="coloring">{{user}} </span></li>
 					</ul>
 				</div>
@@ -58,70 +58,75 @@
 		</div>
 		<!-- /HEADER -->
 <div class="edrea_tm_content">
-		<!-- CONTENT CASE OPERATER-->
-		<div class="edrea_tm_section active" id="input">
+            <!-- CONTACT/FEEDBACK-->
+			<div class="edrea_tm_section active" id="contact">
 				<div class="section_inner">
 					<div class="edrea_tm_contact">
 						<div class="edrea_tm_main_title">
-							<h3>Start your case management <span class="coloring">STEP 1:input your case</span></h3>
+							<h3>Get in Touch &<span class="coloring">Give some Feedback</span></h3>
 						</div>
 						<div class="wrapper">
 							<div class="left">
 								<ul>
 									<li>
 										<div class="list_inner">
-                                            <div class="edrea_tm_button transition_link">
-							                <a href="/cases/">Case Input</a>
-						                    </div>
+											<i class="icon-location"></i>
+											<span><a href="https://www.google.com/maps/place/Vita+Student+West+End+-+Student+Accommodation+Glasgow/@55.8690377,-4.3057205,19.42z/data=!4m5!3m4!1s0x488845db9dab9b09:0xf6c13214c2aa4ff9!8m2!3d55.869016!4d-4.3057957?hl=zh-CN" class="href_location">21 Beith St, Glasgow G11 6BZ</a></span>
 										</div>
 									</li>
 									<li>
 										<div class="list_inner">
-                                            <div class="edrea_tm_button transition_link">
-							                <a href="/View/">Case Analysis View</a>
-						                    </div>
+											<i class="icon-phone"></i>
+											<span><a href="#">+44 7529 197458</a></span>
 										</div>
 									</li>
 									<li>
 										<div class="list_inner">
-                                            <div class="edrea_tm_button transition_link">
-							                <a href="/Log/">Case Log</a>
-						                    </div>
+											<i class="icon-mail-1"></i>
+											<span><a href="mailto:hyuan4934@gmail.com">hyuan4934@gmail.com</a></span>
 										</div>
 									</li>
 									<li>
 										<div class="list_inner">
-                                            <div class="edrea_tm_button transition_link">
-							                <a href="/Report/">Generate Report</a>
-						                    </div>
+											<i class="icon-facebook-rect"></i>
+											<span><a href="https://twitter.com/">@hao05150575</a></span>
 										</div>
 									</li>
 								</ul>
 							</div>
-							<div class="right" id="input">
+							<div class="right">
 								<div class="fields">
-                                    <div class="last">
-											<textarea id="case" placeholder="In put your case here"></textarea>
-                                    </div>
-                                    <div class="edrea_tm_button">
-											<a id="send_message" href="#">Up load</a>
-                                    </div>
-
-                                     <div class="edrea_tm_button">
-                                      <label class="upload control">
-                                       <a class="button is-primary">
-                                           <span class="icon"><i class="mdi mdi-upload"></i></span>
-                                           <span>Click to upload form local</span>
-                                       </a>
-                                      <input type="file" style=" visibility: hidden">
-                                      </label>
-                                      </div>
-                                    </div>
-                            </div>
+									<form action="/" method="post" class="contact_form" id="contact_form">
+										<div class="returnmessage" data-success="Your message has been received, We will contact you soon."></div>
+										<div class="empty_notice"><span>Please Fill Required Fields</span></div>
+										<div class="first">
+											<ul>
+												<li>
+													<div class="list_inner">
+														<input id="name" type="text" placeholder="Name" autocomplete="off">
+													</div>
+												</li>
+												<li>
+													<div class="list_inner">
+														<input id="email" type="text" placeholder="Email" autocomplete="off">
+													</div>
+												</li>
+											</ul>
+										</div>
+										<div class="last">
+											<textarea id="message" placeholder="Your comments are important to me "></textarea>
+										</div>
+										<div class="edrea_tm_button">
+											<a id="send_message" href="#">Send Feed back</a>
+										</div>
+									</form>
+								</div>
+							</div>
 						</div>
 					</div>
-                </div>
-        </div>
+				</div>
+			</div>
+			<!-- /CONTACT/FEEDBECK-->
 </div>
 <!-- SCRIPTS -->
 <script src="/static/js/jquery.js"></script>
