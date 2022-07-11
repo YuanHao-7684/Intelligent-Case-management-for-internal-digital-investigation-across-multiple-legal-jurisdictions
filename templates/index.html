@@ -13,13 +13,14 @@
                 <form action="/signin/" class="sign-in-form" method="post">
                     <h3 class="title-a">This website analyzes legal cases across multiple countries and generates advisory reports in accordance with relevant data transfer and privacy laws </h3>
                     <h2 class="title">Log in </h2>
+                    <p><span class="coloring">{{message}} </span></p>
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" placeholder="username" name="username"/>
+                        <input type="text" placeholder="username" name="username" value={{ user }} >
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="password" placeholder="password" name="password"/>
+                        <input type="password" placeholder="password" name="password" value={{ password }} >
                     </div>
                     <input type="submit" value="Login" class="btn solid" />
                     <p class="social-text">or you can visit this site as guest</p>
@@ -40,7 +41,7 @@
                         <input type="password" placeholder="password" name="newpassword"/>
                     </div>
                     <input type="submit" class="btn" value="Sign up" />
-                    <p class="social-text">text text text ????</p>
+                    <p class="social-text">text text text</p>
                 </form>
             </div>
             <!-- MAIN COUTAINER(sign in part and sign up part)-->
