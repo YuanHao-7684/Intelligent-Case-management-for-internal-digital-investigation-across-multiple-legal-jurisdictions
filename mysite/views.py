@@ -10,11 +10,24 @@ from mysite.models import User
 messagelist = ""
 currentuser = ""
 
-
+#index page
 def index(request):
-    return render(request, 'index.html')
+    initialization=""
+    return render(request, 'index.html',{'user':initialization})
 
-
+#self-builde function
+def buildLaw(request):
+    if request.method == "POST":
+        national = request.POST.get("national", None)
+        nameoflaw = request.POST.get("nameoflaw", None)
+        KeyPoints = request.POST.get("KeyPoints", None)
+        models.Law.objects.create(country=national,LawName=nameoflaw,KeyPoint=KeyPoints)
+        lawlist = models.Law.objects.all()
+        for l in lawlist:
+            print(l.country,"<<"+l.LawName+">>",l.KeyPoint)
+    return render(request,"lawinput.html")
+def lawinput(request):
+    return render(request,"lawinput.html")
 # function
 def signup(request):
     if request.method == "POST":
@@ -24,7 +37,7 @@ def signup(request):
         userlist = models.User.objects.all()
         #
         for u in userlist:
-            print(u.user, u.password,u.email)
+            print(u.user,u.password,u.email)
         flag = models.User.objects.get_or_create(user=username, email=email, password=password)
         if flag[1] == False :
             messagelist="user already exist,please login"
