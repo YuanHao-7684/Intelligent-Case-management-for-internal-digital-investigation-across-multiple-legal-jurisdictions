@@ -32,4 +32,6 @@ urlpatterns = [
     path('Report/',views.Report,name='Report'),
     path('Log/',views.Log,name='Log'),
     path('contact/',views.contact,name='contact'),
+    path('buildLaw/',views.buildLaw,name='buildLaw'),
+    path('lawinput/',views.lawinput,name='lawinput'),
 ]
