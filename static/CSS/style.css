@@ -624,8 +624,8 @@ h6 { font-size: 16px; }
 	padding: 0px 20px;
 }
 .edrea_tm_topbar .logo img{
-	max-width: 300px;
-	max-height: 180px;
+	max-width: 100px;
+	max-height: 40px;
 }
 .edrea_tm_topbar .hamburger{
 	padding: 0px;
@@ -717,7 +717,7 @@ h6 { font-size: 16px; }
 	justify-content: space-between;
 }
 .edrea_tm_header .logo img{
-	max-width: 130px;
+	max-width: 100px;
 }
 .edrea_tm_header .menu ul{
 	margin: 0px;
