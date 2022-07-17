@@ -11,22 +11,26 @@
  <form action="/buildLaw/" class="sign-up-form" method="post">
                     <div class="input-field">
                         <i class="fas fa-user"></i>
-                        <input type="text" placeholder="username" name="national"/>
+                        <input type="text" placeholder="countryname" name="national"/>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-envelope"></i>
-                        <input type="text" placeholder="Email" name="nameoflaw"/>
+                        <input type="text" placeholder="lawname" name="nameoflaw"/>
                     </div>
                     <div class="input-field">
                         <i class="fas fa-lock"></i>
-                        <input type="text" placeholder="password" name="KeyPoints"/>
+                        <input type="text" placeholder="keypoints" name="KeyPoints"/>
+                    </div>
+                    <div class="input-field">
+	                strict: <input type="radio" name="mode" checked="yes" value="strict"/>
+                        neutral: <input type="radio" name="mode" value="neutral" />
+	                 Open: <input type="radio" name="mode" value="open"/>
+                    </div>
+                    <div class="input-field">
+                        <i class="fas fa-lock"></i>
+                        <input type="text" placeholder="countryrelative" name="rCountry"/>
                     </div>
                     <input type="submit" class="btn" value="input" />
  </form>
-<!-- SCRIPTS -->
-<script src="/static/js/jquery.js"></script>
-<script src="/static/js/plugins.js"></script>
-<!-- /SCRIPTS -->
-
 </body>
 </html>
