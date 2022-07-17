@@ -21,13 +21,22 @@ def buildLaw(request):
         national = request.POST.get("national", None)
         nameoflaw = request.POST.get("nameoflaw", None)
         KeyPoints = request.POST.get("KeyPoints", None)
-        models.Law.objects.create(country=national,LawName=nameoflaw,KeyPoint=KeyPoints)
-        lawlist = models.Law.objects.all()
+        mode = request.POST.get("mode",None)
+        relCountry= request.POST.get("rCountry",None)
+        #models.LawIno.objects.filter(country="Mexico").delete()
+        models.LawIno.objects.create(country=national,LawName=nameoflaw,KeyPoint=KeyPoints,restrictedMode=mode,AgreementCountry=relCountry)
+        lawlist = models.LawIno.objects.all()
+        i=1
         for l in lawlist:
-            print(l.country,"<<"+l.LawName+">>",l.KeyPoint)
+            print(str(i)+"---"+l.country+"---"+"\n","<<"+l.LawName+">>"+"\n",l.KeyPoint+"\n",l.restrictedMode+"\n",l.AgreementCountry)
+            i += 1
     return render(request,"lawinput.html")
 def lawinput(request):
     return render(request,"lawinput.html")
+
+
+
+
 # function
 def signup(request):
     if request.method == "POST":
