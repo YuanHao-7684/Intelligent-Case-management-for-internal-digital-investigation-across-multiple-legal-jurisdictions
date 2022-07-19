@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
 <!--<link rel="stylesheet" type="text/css" href="/static/CSS/plugins.css" /> -->
-<link rel="stylesheet" type="text/css" href="/static/CSS/style.css" />
+<link rel="stylesheet" type="text/css" href="/static/CSS/style2.css" />
 <!--<script type="text/javascript" src="/static/js/modernizr.custom.js"></script>-->
 
 </head>
@@ -71,28 +71,28 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/cases/">Case Input</a>
+							                <a href="/cases/">Step1:Case Input</a>
 						                    </div>
 										</div>
 									</li>
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/View/">Case Analysis View</a>
+							                <a href="/View/">Step2:Case Analysis View</a>
 						                    </div>
 										</div>
 									</li>
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Log/">Case Log</a>
+							                <a href="/Log/">Step3:Case Log</a>
 						                    </div>
 										</div>
 									</li>
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Report/">Generate Report</a>
+							                <a href="/Report/">Step4:Generate Report</a>
 						                    </div>
 										</div>
 									</li>
@@ -100,12 +100,12 @@
 							</div>
 							<div class="right" id="input">
 								<div class="fields">
+                                    <form action="/caseinput/" class="fields" method="post">
                                     <div class="last">
-											<textarea id="case" placeholder="In put your case here"></textarea>
+											<textarea id="case" placeholder="In put your case here" name="casecontent"></textarea>
                                     </div>
-                                    <div class="edrea_tm_button">
-											<a id="send_message" href="#">Up load</a>
-                                    </div>
+                                        <input type="submit" class="edrea_tm_button" value="Upload case text" />
+                                    </form>
 
                                      <div class="edrea_tm_button">
                                       <label class="upload control">
@@ -113,9 +113,13 @@
                                            <span class="icon"><i class="mdi mdi-upload"></i></span>
                                            <span>Click to upload form local</span>
                                        </a>
-                                      <input type="file" style=" visibility: hidden">
+                                          <form action="/casefileupload/" method="post" enctype="multipart/form-data">
+                                          <input type="file" style=" visibility: hidden" name="files" multiple>
+                                          <input type="submit" value="uploadfile">
+                                          </form>
                                       </label>
                                       </div>
+
                                     </div>
                             </div>
 						</div>
