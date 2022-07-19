@@ -13,3 +13,7 @@ class LawIno(models.Model):
     KeyPoint = models.CharField(max_length=1024)
     restrictedMode = models.CharField(max_length=16)
     AgreementCountry = models.CharField(max_length=1024, blank=True, null=True)
+class Cases(models.Model):
+    caseId=models.BigAutoField(primary_key=True)
+    caseUser=models.CharField(max_length=32)
+    caseContent=models.CharField(max_length=1024)
