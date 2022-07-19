@@ -34,4 +34,6 @@ urlpatterns = [
     path('contact/',views.contact,name='contact'),
     path('buildLaw/',views.buildLaw,name='buildLaw'),
     path('lawinput/',views.lawinput,name='lawinput'),
+    path('caseinput/',views.caseinput,name='caseinput'),
+    path('casefileupload/',views.casefileupload,name="casefileupload"),
 ]
