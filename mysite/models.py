@@ -16,4 +16,8 @@ class LawIno(models.Model):
 class Cases(models.Model):
     caseId=models.BigAutoField(primary_key=True)
     caseUser=models.CharField(max_length=32)
+    casetitle=models.CharField(max_length=128)
     caseContent=models.CharField(max_length=1024)
+    caseOpencoutryNumber=models.CharField(max_length=6)
+    caseNeutralcoutryNumber = models.CharField(max_length=6)
+    caseStrcitcoutryNumber = models.CharField(max_length=6)

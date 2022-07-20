@@ -1,15 +1,24 @@
+import os
+
 from django.db.models import QuerySet
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from mysite import models
+import docx
+import re
+from docx import Document
+from chardet import detect
 # Create your views here.
 from django.shortcuts import HttpResponse
-
+from mysite.forms import UploadFileForm
 from mysite.models import User
-
+import numpy as np
 messagelist = ""
 currentuser = ""
 
+open_country=['EEA', 'United Kingdom', 'UK', 'Kingdom', 'India', 'Hong Kong', 'Hong','Kong','United States', 'US', 'States']
+neutral_country=['Russian', 'Colombia', 'Japan', 'Ukraine', 'South Korea', 'Korea', 'Nigeria', 'Argentina']
+strict_country=['China', 'Turkey', 'Brazil', 'Peru', 'Philippines', 'Thailand', 'Malaysia', 'Singapore', 'Egypt', 'South Africa', 'Africa', 'Morocco', 'Canada', 'Mexico']
 #index page
 def index(request):
     initialization=""
@@ -70,10 +79,41 @@ def signin(request):
             return render(request, 'index.html',{'message':messagelist})
         if nameflag.password != passWord:
             messagelist="wrong password"
-            return render(request, 'index.html',{'message':messagelist})
+            initialization = ""
+            return render(request, 'index.html',{'message':messagelist,'user':initialization})
         request.session["username"]=userName
         currentuser=request.session.get("username")
         return render(request, 'homepage.html', {'user': currentuser})
+
+def caseinput(request):
+    if request.method == "POST":
+        casetext=request.POST.get("casecontent",None)
+        userName=request.session.get("username")
+        currentuser = userName
+        title="InputCase-"+casetext[0:5]
+        print(title)
+        flag = models.Cases.objects.get_or_create(caseUser=userName,caseContent=casetext,casetitle=title)
+        if flag[1] == True:
+            return render(request, 'casepage.html', {'user': currentuser})
+    return render(request, 'homepage.html', {'user': currentuser})
+
+
+def casefileupload(request):
+    if request.method == "POST":
+           uploadfile_list=request.FILES.getlist('files')
+           for file in uploadfile_list:
+              filetype=os.path.splitext(file.name)[-1][1:]
+              #docx file
+              if filetype == "docx":
+                 totaltext=""
+                 docfile=docx.Document(file)
+                 for paragraph in docfile.paragraphs:
+                     totaltext+=paragraph.text+" "
+                 userName = request.session.get("username")
+                 currentuser = userName
+                 models.Cases.objects.create(caseUser=userName, caseContent=totaltext,casetitle=file.name)
+    return render(request, 'casepage.html', {'user': currentuser})
+
 
 def homepage(request):
     currentuser = request.session.get("username")
@@ -90,10 +130,42 @@ def cases(request):
     currentuser = request.session.get("username")
     return render(request, 'casepage.html', {'user': currentuser})
 
-
+#case preview
 def View(request):
+    #country process
+    #country_list=models.LawIno.objects.all()
+    #for c in range(len(country_list)):
+    #    if country_list[c].restrictedMode == "open":
+    #        open_country.append(country_list[c].country)
+    #    if country_list[c].restrictedMode == "neutral":
+    #       neutral_country.append(country_list[c].country)
+    #    if country_list[c].restrictedMode == "strict":
+    #        strict_country.append(country_list[c].country)
+    print(open_country)
+    print(neutral_country)
+    print(strict_country)
+
+
+    #case process
     currentuser = request.session.get("username")
-    return render(request, 'caseView.html', {'user': currentuser})
+    userCase_list=models.Cases.objects.filter(caseUser=currentuser)
+    for i in range(len(userCase_list)):
+         words_list=userCase_list[i].caseContent
+         caseID=userCase_list[i].caseId
+         #each case
+         open_country_number = 0
+         netural_country_number = 0
+         strict_country_number = 0
+         result=words_list.split(' ')
+         for j in range(len(result)):
+             if result[j] in open_country:
+                  open_country_number=open_country_number+1
+             if result[j] in neutral_country:
+                  netural_country_number=netural_country_number+1
+             if result[j] in strict_country:
+                  strict_country_number=strict_country_number+1
+         models.Cases.objects.filter(caseId=caseID).update(caseNeutralcoutryNumber=netural_country_number,caseOpencoutryNumber=open_country_number,caseStrcitcoutryNumber=strict_country_number)
+    return render(request, 'caseView.html', {'user': currentuser,'caselist':userCase_list,'listlen':len(userCase_list)})
 
 
 def Log(request):
