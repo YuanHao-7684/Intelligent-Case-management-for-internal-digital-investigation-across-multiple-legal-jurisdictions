@@ -9,3 +9,11 @@ sign_up_btn.addEventListener("click", () => {
 sign_in_btn.addEventListener("click", () => {
   container.classList.remove("sign-up-mode");
 });
+function showCaseDetail(){
+  var div= $("#hidenDiv").get(0);
+  if(div.style.display == ""){
+    div.style.display = "none";
+  }else{
+    div.style.display = "";
+  }
+}
