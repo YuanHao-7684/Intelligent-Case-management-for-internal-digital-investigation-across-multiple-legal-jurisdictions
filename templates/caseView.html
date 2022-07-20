@@ -9,14 +9,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
 <!--<link rel="stylesheet" type="text/css" href="/static/CSS/plugins.css" /> -->
-<link rel="stylesheet" type="text/css" href="/static/CSS/style.css" />
+<link rel="stylesheet" type="text/css" href="/static/CSS/style2.css" />
 <!--<script type="text/javascript" src="/static/js/modernizr.custom.js"></script>-->
 
 </head>
 <body>
 <div class="edrea_tm_all_wrap" data-magic-cursor="show" data-enter="fadeInUp" data-exit="">
 		<div class="waves"></div>
-        <!-- logo -->
+        <!-- LOGO -->
 		<div class="edrea_tm_topbar">
 			<div class="topbar_inner">
 				<div class="logo">
@@ -24,7 +24,7 @@
 				</div>
 			</div>
 		</div>
-        <!-- bar -->
+        <!-- BAR -->
 		<div class="edrea_tm_mobile_menu">
 			<div class="inner">
 				<div class="menu_list">
@@ -71,36 +71,55 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/cases/">Case Input</a>
+							                <a href="/cases/">Step1:Case Input</a>
 						                    </div>
 										</div>
 									</li>
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/View/">Case Analysis View</a>
+							                <a href="/View/">Step2:Case View</a>
 						                    </div>
 										</div>
 									</li>
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Log/">Case Log</a>
+							                <a href="/Log/">Step3:Case Analysis</a>
 						                    </div>
 										</div>
 									</li>
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Report/">Generate Report</a>
+							                <a href="/Report/">Step4:Generate Report</a>
 						                    </div>
 										</div>
 									</li>
 								</ul>
 							</div>
-							<div class="right" id="input">
-								<div class="fields">
-                                    <p>caseview</p>
+							<div class="left">
+                            <div class="edrea_tm_main_title">
+							<h5>Your current account has<span class="coloring"> {{ listlen }}</span> cases</h5>
+                                <p>Click on the title of each case to view details</p>
+						    </div>
+                                    {% for c in caselist %}
+									<li>
+										<div class="list_inner">
+                                            <div class="edrea_tm_button transition_link">
+							                <a onclick="showCaseDetail()">{{ c.casetitle}}</a>
+						                    </div>
+										</div>
+                                         <div class="text_hiden" id="hidenDiv">
+                                             <P><span class="coloring">Case ID:</span>{{ c.caseId }} </P>
+                                             <p><span class="coloring">Case content:</span> </p>
+                                             <textarea name="" rows="10" cols="30" >{{ c.caseContent }}</textarea>
+                                             <P style="color: #53ff14">In this case, there are {{ c.caseOpencoutryNumber }} countries  restricted mode is open</P>
+                                             <P style="color: #ff950e">In this case, there are {{ c.caseNeutralcoutryNumber }} countries  restricted mode is neutral</P>
+                                             <P style="color: #ff1a1c">In this case, there are {{ c.caseStrcitcoutryNumber }} countries  restricted mode is strict</P>
+                                         </div>
+									</li>
+                                    {% endfor %}
                             </div>
 						</div>
 					</div>
@@ -110,6 +129,7 @@
 <!-- SCRIPTS -->
 <script src="/static/js/jquery.js"></script>
 <script src="/static/js/plugins.js"></script>
+<script src="/static/js/script.js"></script>
 <!-- /SCRIPTS -->
 
 </body>
