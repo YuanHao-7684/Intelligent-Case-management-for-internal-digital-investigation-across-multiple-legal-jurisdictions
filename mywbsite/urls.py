@@ -36,4 +36,6 @@ urlpatterns = [
     path('lawinput/',views.lawinput,name='lawinput'),
     path('caseinput/',views.caseinput,name='caseinput'),
     path('casefileupload/',views.casefileupload,name="casefileupload"),
+    path('Setupnewcase/',views.Setupnewcase,name="/Setupnewcase/"),
+    path('NewcaseSubmit/',views.NewcaseSubmit,name="/NewcaseSubmit/"),
 ]
