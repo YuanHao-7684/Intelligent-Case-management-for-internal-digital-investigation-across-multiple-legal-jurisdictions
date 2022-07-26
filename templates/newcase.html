@@ -11,12 +11,7 @@
 <!--<link rel="stylesheet" type="text/css" href="/static/CSS/plugins.css" /> -->
 <link rel="stylesheet" type="text/css" href="/static/CSS/style2.css" />
 <!--<script type="text/javascript" src="/static/js/modernizr.custom.js"></script>-->
-<script type="text/javascript">
-    function clickToshowInfor() {
-        var object=document.getElementById("{{ c.caseId }}")
-        alert(object.id)
-    }
-</script>
+
 </head>
 <body>
 <div class="edrea_tm_all_wrap" data-magic-cursor="show" data-enter="fadeInUp" data-exit="">
@@ -68,7 +63,7 @@
 				<div class="section_inner">
 					<div class="edrea_tm_contact">
 						<div class="edrea_tm_main_title">
-							<h3>Start your case management <span class="coloring">STEP 2:View and analysis case</span></h3>
+							<h3>Quickly build a new case</h3>
 						</div>
 						<div class="wrapper">
 							<div class="left">
@@ -104,31 +99,69 @@
 								</ul>
 							</div>
 							<div class="right">
-                            <div class="edrea_tm_main_title">
-							<h5>Your current account has<span class="coloring"> {{ listlen }}</span> cases</h5>
-                                <p>Click on the title of each case to view details</p>
-						    </div>
-                            <!-- CASE INFOR -->
-                                    {% for c in caselist %}
-                                        <div class="list_inner">
-                                         <h6>{{ c.caseName }}</h6>
-                                                <div class="text_hiden" id="hidenDiv">
-                                                <P><span class="coloring">Case ID:</span>{{ c.caseId }} </P>
-                                                <p><span class="coloring">Case Investigator:</span>{{ c.caseInv }} </p>
-                                                    <p><span class="coloring">Case Type:</span>{{ c.caseScope | upper }}</p>
-                                                    <textarea name="" rows="10" cols="30" >{{ c.casesynopsis }}</textarea>
-                                                    <p>realative avidence </p>
-                                                </div>
-                                            <div class="edrea_tm_button transition_link">
-                                               <a>edit</a><a>delelte</a>
-                                            </div>
+                                <div class="fields">
+                                <form action="/NewcaseSubmit/" method="post" class="contact_form">
+											<ul>
+												<li>
+                                                    <h6>Case Name</h6>
+													<div class="list_inner">
+														<input id="name" name="Name" type="text" placeholder="Name" autocomplete="off">
+													</div>
+												</li>
+												<li>
+                                                     <h6>Case ID</h6>
+													<div class="list_inner">
+														<input id="ID" name="ID" type="text" placeholder="ID" autocomplete="off">
+													</div>
+												</li>
+                                                <li>
+                                                     <h6>Select Case involving countries/area</h6>
+													<div class="list_inner">
+														<p>
+                                                             US <input type="checkbox" name="area" value="US" />
+	                                                         UK <input type="checkbox" name="area" value="UK" />
+	                                                         EU <input type="checkbox" name="area" value="EU" />
+	                                                         CHINA <input type="checkbox" name="area" value="CHINA" />
+                                                             RUSSIAN <input type="checkbox" name="area" value="RUSSIAN" />
+                                                             JAPAN <input type="checkbox" name="area" value="JAPAN" />
+                                                        </p>
+													</div>
+												</li>
+                                                <li>
+                                                     <h6>Case Investigator</h6>
+													<div class="list_inner">
+														<input id="intor" name="InvName" type="text" placeholder="Inverstigator name " autocomplete="off" style="">
+													</div>
+												</li>
+                                                <li>
+                                                     <h6>Investigator email</h6>
+													<div class="list_inner">
+														<input id="emial" name="InvEmail"type="text" placeholder="Emial " autocomplete="off" style="">
+													</div>
+												</li>
+                                                <li>
+                                                     <h6>Select Type of Case</h6>
+													<div class="list_inner">
+														<p>
+                                                             Finance <input type="checkbox" name="Type" value="finance" />
+	                                                         Scam <input type="checkbox" name="Type" value="scam" />
+	                                                         Disclose <input type="checkbox" name="Type" value="Disclose" />
+	                                                         Politics/Religion <input type="checkbox" name="Type" value="politics/religion" />
+                                                             Insider Threat <input type="checkbox" name="Type" value="insider threat" />
+                                                        </p>
+													</div>
+												</li>
+                                                <li>
+                                                     <h6>Case synopsis</h6>
+                                                </li>
+                                            </ul>
+                                        <div class="last">
+											<textarea id="message" name="synopsis" placeholder="a short summry to this case(max 1000 words)"></textarea>
 										</div>
-                                    {% endfor %}
-                             <div class="list_inner">
-                                  <div class="edrea_tm_button transition_link">
-                                   <a href="/Setupnewcase/" class="newcase_button" style="color: #4CAF50; background-color: aqua">Set up a new case</a>
-                                  </div>
-                             </div>
+										<div class="edrea_tm_button">
+											<input type="submit" class="btn" value="Submit" />
+										</div>
+									</form>
                             </div>
 						</div>
 					</div>
@@ -140,7 +173,6 @@
 <script src="/static/js/jquery.js"></script>
 <script src="/static/js/plugins.js"></script>
 <script src="/static/js/script.js"></script>
-
 <!-- /SCRIPTS -->
 
 </body>
