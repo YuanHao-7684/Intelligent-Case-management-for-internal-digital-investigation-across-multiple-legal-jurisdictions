@@ -21,3 +21,13 @@ class Cases(models.Model):
     caseOpencoutryNumber=models.CharField(max_length=6)
     caseNeutralcoutryNumber = models.CharField(max_length=6)
     caseStrcitcoutryNumber = models.CharField(max_length=6)
+class SetUpCases(models.Model):
+    caseId = models.BigAutoField(primary_key=True)
+    caseUserName= models.CharField(max_length=32)
+    UserInputId=models.CharField(max_length=32)
+    caseName = models.CharField(max_length=32)
+    caseScope = models.CharField(max_length=128)
+    caseInv = models.CharField(max_length=128)
+    caseInvEmail = models.CharField(max_length=128)
+    caseType = models.CharField(max_length=128)
+    casesynopsis = models.CharField(max_length=1000)

@@ -129,6 +129,34 @@ def patternpage(request):
 def cases(request):
     currentuser = request.session.get("username")
     return render(request, 'casepage.html', {'user': currentuser})
+def Setupnewcase(request):
+    currentuser = request.session.get("username")
+    return render(request, 'newcase.html', {'user': currentuser})
+
+
+def NewcaseSubmit(request):
+    if request.method == "POST":
+        caseName = request.POST.get("Name", None)
+        userinputID = request.POST.get("ID", None)
+        caseScope = request.POST.getlist("area")
+        InvName = request.POST.get("InvName", None)
+        InvEmail = request.POST.get("InvEmail", None)
+        caseSynopsis = request.POST.get("synopsis", None)
+        caseType = request.POST.getlist("Type")
+        currentuser = request.session.get("username")
+        models.SetUpCases.objects.create(UserInputId=userinputID,
+                                         caseName=caseName,
+                                         caseScope=caseScope,
+                                         caseInv=InvName,
+                                         caseInvEmail=InvEmail,
+                                         caseType=caseType,
+                                         casesynopsis=caseSynopsis,
+                                         caseUserName=currentuser)
+    # case process
+    currentuser = request.session.get("username")
+    userCase_list = models.SetUpCases.objects.filter(caseUserName=currentuser)
+    return render(request, 'caseView.html',{'user': currentuser, 'caselist': userCase_list, 'listlen': len(userCase_list)})
+
 
 #case preview
 def View(request):
@@ -141,33 +169,11 @@ def View(request):
     #       neutral_country.append(country_list[c].country)
     #    if country_list[c].restrictedMode == "strict":
     #        strict_country.append(country_list[c].country)
-    print(open_country)
-    print(neutral_country)
-    print(strict_country)
-
-
     #case process
     currentuser = request.session.get("username")
-    userCase_list=models.Cases.objects.filter(caseUser=currentuser)
-    for i in range(len(userCase_list)):
-         words_list=userCase_list[i].caseContent
-         caseID=userCase_list[i].caseId
-         #each case
-         open_country_number = 0
-         netural_country_number = 0
-         strict_country_number = 0
-         result=words_list.split(' ')
-         for j in range(len(result)):
-             if result[j] in open_country:
-                  open_country_number=open_country_number+1
-             if result[j] in neutral_country:
-                  netural_country_number=netural_country_number+1
-             if result[j] in strict_country:
-                  strict_country_number=strict_country_number+1
-         models.Cases.objects.filter(caseId=caseID).update(caseNeutralcoutryNumber=netural_country_number,caseOpencoutryNumber=open_country_number,caseStrcitcoutryNumber=strict_country_number)
-    return render(request, 'caseView.html', {'user': currentuser,'caselist':userCase_list,'listlen':len(userCase_list)})
-
-
+    userCase_list = models.SetUpCases.objects.filter(caseUserName=currentuser)
+    return render(request, 'caseView.html',
+                  {'user': currentuser, 'caselist': userCase_list, 'listlen': len(userCase_list)})
 def Log(request):
     currentuser = request.session.get("username")
     return render(request, 'caseLog.html', {'user': currentuser})
