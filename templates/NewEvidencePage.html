@@ -68,7 +68,7 @@
 				<div class="section_inner">
 					<div class="edrea_tm_contact">
 						<div class="edrea_tm_main_title">
-							<h3>Start your case management <span class="coloring">STEP 2:View and analysis case</span></h3>
+							<h3>Manage your current evidence about Case <span class="coloring">{{ caseName }}</span></h3>
 						</div>
 						<div class="wrapper">
 							<div class="left">
@@ -105,28 +105,47 @@
 							</div>
 							<div class="right">
                             <div class="edrea_tm_main_title">
-							<h5>Your current account has<span class="coloring"> {{ listlen }}</span> cases</h5>
 						    </div>
-                            <!-- CASE INFOR -->
-                                    {% for c in caselist %}
-                                        <div class="list_inner">
-                                         <h6>{{ c.caseName }}</h6>
-                                                <div class="text_hiden" id="hidenDiv">
-                                                <P><span class="coloring">Case ID:</span>{{ c.UserInputId }} </P>
-                                                <p><span class="coloring">Case Investigator:</span>{{ c.caseInv }} </p>
-                                                    <p><span class="coloring">Case Type:</span>{{ c.caseScope | upper }}</p>
-                                                    <textarea name="" rows="10" cols="30" >{{ c.casesynopsis }}</textarea>
-                                                </div>
-                                            <div class="edrea_tm_button transition_link">
-                                                <a href="/ShowCaseEvidence/?caseid={{ c.caseId }}">Evidence</a><a>Edit</a><a>Delelte</a>
-                                            </div>
+                                <div class="fields">
+                                        <form action="/NewEvidenceSubmit/" method="post" class="contact_form">
+											<ul>
+                                                <li>
+                                                     <h6>Evidence Name:</h6>
+													<div class="list_inner">
+														<input id="EviName" name="EviName" type="text" placeholder="Name" autocomplete="off">
+													</div>
+												</li>
+                                                <li>
+                                                    <h6>Evidence Type</h6>
+                                                    <div class="list_inner">
+													<select id="22" name="type" multip="" style="width:180px;height: 30px;" tip="">
+                                                        <option value="" style="">---Select---</option>
+                                                        <option value="Device" style="">Device</option>
+                                                        <option value="Confession" style="">Confession</option>
+                                                        <option value="Appraisal conclusion" style="">Appraisal conclusion</option>
+                                                        <option hidden="" value=""></option>
+                                                    </select>
+                                                    </div>
+												</li>
+                                                <li>
+                                                    <h6>Principal:</h6>
+													<div class="list_inner">
+														<input id="Principal" name="Principal" type="text" placeholder="Principal" autocomplete="off">
+													</div>
+												</li>
+                                                <li>
+                                                    <h6>Evidence Summary:</h6>
+                                                    <div class="last">
+											        <textarea id="message" name="summary" placeholder="a short summry to this case(max 1000 words)"></textarea>
+										            </div>
+												</li>
+
+                                            </ul>
+										<div class="edrea_tm_button">
+											<input type="submit" class="btn" value="Submit" />
 										</div>
-                                    {% endfor %}
-                             <div class="list_inner">
-                                  <div class="edrea_tm_button transition_link">
-                                   <a href="/Setupnewcase/" class="newcase_button" style="color: #4CAF50; background-color: aqua">Set up a new case</a>
-                                  </div>
-                             </div>
+									</form>
+                                </div>
                             </div>
 						</div>
 					</div>

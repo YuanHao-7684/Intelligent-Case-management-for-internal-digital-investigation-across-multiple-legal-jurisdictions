@@ -68,7 +68,7 @@
 				<div class="section_inner">
 					<div class="edrea_tm_contact">
 						<div class="edrea_tm_main_title">
-							<h3>Start your case management <span class="coloring">STEP 2:View and analysis case</span></h3>
+							<h3>Manage your current evidence about Case <span class="coloring">{{ caseName }}</span></h3>
 						</div>
 						<div class="wrapper">
 							<div class="left">
@@ -104,29 +104,34 @@
 								</ul>
 							</div>
 							<div class="right">
+                             <div class="edrea_tm_button transition_link">
+                                   <a href="/View/"  style="color:white; background-color: red">Back to my cases</a>
+                             </div>
                             <div class="edrea_tm_main_title">
-							<h5>Your current account has<span class="coloring"> {{ listlen }}</span> cases</h5>
+                                {% if lenevidence > 0 %}
+							<h5>Current account has<span class="coloring"> {{ lenevidence }}</span> Evidence</h5>
+                                {% endif %}
+                                {% if lenevidence == 0 %}
+                                    <h5>There is no evidence in the current case, please add one</h5>
+                                {% endif %}
 						    </div>
-                            <!-- CASE INFOR -->
-                                    {% for c in caselist %}
+                                 {% for e in evidences %}
                                         <div class="list_inner">
-                                         <h6>{{ c.caseName }}</h6>
+                                         <h6>{{ e.EvidenceName }}</h6>
                                                 <div class="text_hiden" id="hidenDiv">
-                                                <P><span class="coloring">Case ID:</span>{{ c.UserInputId }} </P>
-                                                <p><span class="coloring">Case Investigator:</span>{{ c.caseInv }} </p>
-                                                    <p><span class="coloring">Case Type:</span>{{ c.caseScope | upper }}</p>
-                                                    <textarea name="" rows="10" cols="30" >{{ c.casesynopsis }}</textarea>
+                                                <p><span style="color: aqua">Principal:</span>{{ e.Principal }} </p>
+                                                    <p><span style="color: aqua">Evidence Type:</span>{{ e.EvidenceType }}</p>
+                                                    <p><span style="color: aqua">Evidence Source:</span>{{ e.Source }}</p>
+                                                    <textarea name="" rows="10" cols="30" >{{ e.EvidenceSummary }}</textarea>
                                                 </div>
-                                            <div class="edrea_tm_button transition_link">
-                                                <a href="/ShowCaseEvidence/?caseid={{ c.caseId }}">Evidence</a><a>Edit</a><a>Delelte</a>
-                                            </div>
 										</div>
                                     {% endfor %}
-                             <div class="list_inner">
-                                  <div class="edrea_tm_button transition_link">
-                                   <a href="/Setupnewcase/" class="newcase_button" style="color: #4CAF50; background-color: aqua">Set up a new case</a>
-                                  </div>
-                             </div>
+                                  <br>
+                            <div class="list_inner">
+                            <div class="edrea_tm_button transition_link">
+                                   <a href="/SetupnewEvidence/?caseId={{ caseId }}" class="newcase_button" style="color: #4CAF50; background-color: aqua">Set up a new Evidence</a>
+                            </div>
+                            </div>
                             </div>
 						</div>
 					</div>
