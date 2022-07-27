@@ -31,3 +31,11 @@ class SetUpCases(models.Model):
     caseInvEmail = models.CharField(max_length=128)
     caseType = models.CharField(max_length=128)
     casesynopsis = models.CharField(max_length=1000)
+class Evidence(models.Model):
+    EvidenceId = models.BigAutoField(primary_key=True)
+    EvidenceName = models.CharField(max_length=32)
+    ComCaseId = models.CharField(max_length=32)
+    EvidenceType = models.CharField(max_length=32)
+    Principal = models.CharField(max_length=32)
+    Source = models.CharField(max_length=32)
+    EvidenceSummary = models.CharField(max_length=1000)

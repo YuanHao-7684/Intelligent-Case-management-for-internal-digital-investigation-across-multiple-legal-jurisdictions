@@ -158,6 +158,43 @@ def NewcaseSubmit(request):
     return render(request, 'caseView.html',{'user': currentuser, 'caselist': userCase_list, 'listlen': len(userCase_list)})
 
 
+#Evidence
+def ShowCaseEvidence(request):
+
+    cId=request.GET.get("caseid")
+    caseN=models.SetUpCases.objects.filter(caseId=cId)
+    currentCaseName=caseN[0].caseName
+    Evidence_list = models.Evidence.objects.filter(ComCaseId=cId)
+    currentuser = request.session.get("username")
+    listlen=len(Evidence_list)
+    return render(request, 'caseEviShowpage.html', {'user': currentuser,'caseName':currentCaseName,'caseId':cId,'evidences':Evidence_list,'lenevidence':listlen,})
+
+
+def SetupnewEvidence(request):
+    cId=request.GET.get("caseId")
+    caseType = models.SetUpCases.objects.filter(caseId=cId)
+    caseN = models.SetUpCases.objects.filter(caseId=cId)
+    currentCaseType = caseType[0].caseType
+    print(currentCaseType)
+    currentCaseName = caseN[0].caseName
+    currentuser = request.session.get("username")
+    request.session["currentCaseId"] = cId
+    return render(request, 'NewEvidencePage.html', {'user': currentuser, 'caseName': currentCaseName, 'caseId': cId,})
+
+def NewEvidenceSubmit(request):
+    if request.method == "POST":
+        eName=request.POST.get("EviName")
+        eviType=request.POST.get("type")
+        principal=request.POST.get("Principal")
+        evidenceSummary=request.POST.get("summary")
+        cId=request.session.get("currentCaseId")
+
+        models.Evidence.objects.create(EvidenceName=eName,ComCaseId=cId,EvidenceType=eviType,EvidenceSummary=evidenceSummary,Principal=principal)
+        currentuser = request.session.get("username")
+        del request.session["currentCaseId"]
+        return render(request, 'homepage.html', {'user': currentuser})
+
+
 #case preview
 def View(request):
     #country process
