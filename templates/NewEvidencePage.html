@@ -68,7 +68,7 @@
 				<div class="section_inner">
 					<div class="edrea_tm_contact">
 						<div class="edrea_tm_main_title">
-							<h3>Manage your current evidence about Case <span class="coloring">{{ caseName }}</span></h3>
+							<h3>Manage your evidence about Case: <span class="coloring">{{ caseName }}</span></h3>
 						</div>
 						<div class="wrapper">
 							<div class="left">
@@ -128,10 +128,17 @@
                                                     </div>
 												</li>
                                                 <li>
-                                                    <h6>Principal:</h6>
+                                                    <h6>Select evidence location</h6>
 													<div class="list_inner">
-														<input id="Principal" name="Principal" type="text" placeholder="Principal" autocomplete="off">
+                                                        {% for i in evidencescope %}
+														<p>
+                                                             {{ i }} <input type="radio" name="loc" value="{{ i }}" />
+                                                        </p>
+                                                        {% endfor %}
 													</div>
+												</li>
+                                                <li>
+                                                    <h6>Principal: {{ user }} <span class="coloring">(You are adding evidence to your own case)<span/></h6>
 												</li>
                                                 <li>
                                                     <h6>Evidence Summary:</h6>

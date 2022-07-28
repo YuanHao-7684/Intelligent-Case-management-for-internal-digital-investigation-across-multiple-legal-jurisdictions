@@ -109,7 +109,7 @@
                              </div>
                             <div class="edrea_tm_main_title">
                                 {% if lenevidence > 0 %}
-							<h5>Current account has<span class="coloring"> {{ lenevidence }}</span> Evidence</h5>
+							<h5>Current case has<span class="coloring"> {{ lenevidence }}</span> Evidence</h5>
                                 {% endif %}
                                 {% if lenevidence == 0 %}
                                     <h5>There is no evidence in the current case, please add one</h5>
@@ -122,6 +122,7 @@
                                                 <p><span style="color: aqua">Principal:</span>{{ e.Principal }} </p>
                                                     <p><span style="color: aqua">Evidence Type:</span>{{ e.EvidenceType }}</p>
                                                     <p><span style="color: aqua">Evidence Source:</span>{{ e.Source }}</p>
+                                                    <p><span style="color: aqua">Evidence location:</span>{{ e.EvidenceLoc }}
                                                     <textarea name="" rows="10" cols="30" >{{ e.EvidenceSummary }}</textarea>
                                                 </div>
 										</div>

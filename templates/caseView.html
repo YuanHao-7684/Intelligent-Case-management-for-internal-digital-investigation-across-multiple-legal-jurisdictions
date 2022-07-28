@@ -68,7 +68,7 @@
 				<div class="section_inner">
 					<div class="edrea_tm_contact">
 						<div class="edrea_tm_main_title">
-							<h3>Start your case management <span class="coloring">STEP 2:View and analysis case</span></h3>
+							<h3>Hello, <span class="coloring">{{ user }} !</span> all your cases show here:</h3>
 						</div>
 						<div class="wrapper">
 							<div class="left">
@@ -90,7 +90,7 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Log/">Evidence</a>
+							                <a href="/Evidence/">Evidence</a>
 						                    </div>
 										</div>
 									</li>
@@ -110,7 +110,7 @@
                             <!-- CASE INFOR -->
                                     {% for c in caselist %}
                                         <div class="list_inner">
-                                         <h6>{{ c.caseName }}</h6>
+                                            <h4><span class="coloring">{{ c.caseName }}</span></h4>
                                                 <div class="text_hiden" id="hidenDiv">
                                                 <P><span class="coloring">Case ID:</span>{{ c.UserInputId }} </P>
                                                 <p><span class="coloring">Case Investigator:</span>{{ c.caseInv }} </p>
@@ -118,7 +118,7 @@
                                                     <textarea name="" rows="10" cols="30" >{{ c.casesynopsis }}</textarea>
                                                 </div>
                                             <div class="edrea_tm_button transition_link">
-                                                <a href="/ShowCaseEvidence/?caseid={{ c.caseId }}">Evidence</a><a>Edit</a><a>Delelte</a>
+                                                <a href="/ShowCaseEvidence/?caseid={{ c.caseId }}">Evidence</a><a>Delelte</a>
                                             </div>
 										</div>
                                     {% endfor %}

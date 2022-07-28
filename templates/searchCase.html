@@ -32,7 +32,7 @@
 						<li><a href="/homepage/">Home</a></li>
 						<li><a href="/patternpage/">pattern</a></li>
 						<li class="active"><a href="/cases/">cases management</a></li>
-						<li><a href="/contact/">Contact and feedback</a></li>
+						<li><a href="/contact">Contact and feedback</a></li>
                         <li>Hello {{user}} </li>
 					</ul>
 				</div>
@@ -63,15 +63,15 @@
 				<div class="section_inner">
 					<div class="edrea_tm_contact">
 						<div class="edrea_tm_main_title">
-							<h3>Start your case management: Here is your <span class="coloring"> DashBorad </span></h3>
-						</div>
+                            <h5>You can search other people cases and upload evidence for them collaboratively(Need key)</h5>
+                        </div>
 						<div class="wrapper">
 							<div class="left">
 								<ul>
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-                                                <a href="/cases/">DashBoard</a>
+							                <a href="/cases/">DashBoard</a>
 						                    </div>
 										</div>
 									</li>
@@ -85,7 +85,7 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Evidence/">Avidence</a>
+							                <a href="/Evidence/">Evidence</a>
 						                    </div>
 										</div>
 									</li>
@@ -99,31 +99,31 @@
 								</ul>
 							</div>
 							<div class="right" id="input">
-                                <div class="container_text">
-								<div class="logo">
-					            <a href="#"><img src="/static/CSS/img/logo/homepage3.png" alt="" width="210" height="100"/></a>
-				                </div>
-                                 <div class="edrea_tm_button transition_link">
-							      <a href="/View/">Manage Cases</a>
-                                 </div>
-                                </div>
-
-                                <div class="container_text">
-								<div class="logo">
-					            <a href="#"><img src="/static/CSS/img/logo/homepage2.png" alt="" width="210" height="100"/></a>
-				                </div>
-                                 <div class="edrea_tm_button transition_link">
-							      <a href="/Evidence/">Manage Adviecve</a>
-                                 </div>
-                                </div>
-
-                                <div class="container_text">
-								<div class="logo">
-					            <a href="#"><img src="/static/CSS/img/logo/homepage1.png" alt="" width="210" height="100"/></a>
-				                </div>
-                                 <div class="edrea_tm_button transition_link">
-							      <a href="/patternpage/">Manage Data Scorce</a>
-                                 </div>
+                                <h5>looking for a certain case by name</h5>
+                                <div class="fields">
+                                    <form action="/sCaseName/" class="contact_form" method="post">
+                                    <input type="text"  name="sCasename" style="width: 400px; height: 30px; " placeholder="Serach case name">
+                                       <div class="edrea_tm_button">
+											<input type="submit" class="btn" value="Search" />
+										</div>
+                                    </form>
+                                     {% if listlen == 0 %}
+                                         <h5><span class="coloring">No matching results, please check name of case again </span></h5>
+                                     {% endif %}
+                                     {% for c in caselist %}
+                                        <div class="list_inner">
+                                            <h4><span class="coloring">{{ c.caseName }}</span></h4>
+                                                <div class="text_hiden" id="hidenDiv">
+                                                <P><span class="coloring">Case ID:</span>{{ c.UserInputId }} </P>
+                                                <p><span class="coloring">Case Investigator:</span>{{ c.caseInv }} </p>
+                                                    <p><span class="coloring">Case Type:</span>{{ c.caseScope | upper }}</p>
+                                                    <textarea name="" rows="10" cols="30" >{{ c.casesynopsis }}</textarea>
+                                                </div>
+                                            <div class="edrea_tm_button transition_link">
+                                                <a href="/ShowCaseEvidence/?caseid={{ c.caseId }}">Evidence</a><a>Delelte</a>
+                                            </div>
+										</div>
+                                    {% endfor %}
                                 </div>
                             </div>
 						</div>
