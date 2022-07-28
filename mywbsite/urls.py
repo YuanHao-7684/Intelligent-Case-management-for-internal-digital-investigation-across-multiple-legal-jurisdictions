@@ -30,7 +30,7 @@ urlpatterns = [
     path('cases/',views.cases,name='cases'),
     path('View/',views.View,name='View'),
     path('Report/',views.Report,name='Report'),
-    path('Log/',views.Log,name='Log'),
+    path('Evidence/',views.Evidence,name='Evidence'),
     path('contact/',views.contact,name='contact'),
     path('buildLaw/',views.buildLaw,name='buildLaw'),
     path('lawinput/',views.lawinput,name='lawinput'),
@@ -41,4 +41,6 @@ urlpatterns = [
     path('ShowCaseEvidence/',views.ShowCaseEvidence,name="/ShowCaseEvidence/"),
     path('SetupnewEvidence/',views.SetupnewEvidence,name="/SetupnewEvidence/"),
     path('NewEvidenceSubmit/',views.NewEvidenceSubmit,name="/NewEvidenceSubmit/"),
+    path('SerchCase/',views.SerchCase,name="/SerchCase/"),
+    path('sCaseName/',views.sCaseName,name="/sCaseName/"),
 ]
