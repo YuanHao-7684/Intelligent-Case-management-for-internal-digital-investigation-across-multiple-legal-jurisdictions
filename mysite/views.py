@@ -171,28 +171,49 @@ def ShowCaseEvidence(request):
 
 
 def SetupnewEvidence(request):
+
     cId=request.GET.get("caseId")
     caseType = models.SetUpCases.objects.filter(caseId=cId)
     caseN = models.SetUpCases.objects.filter(caseId=cId)
-    currentCaseType = caseType[0].caseType
-    print(currentCaseType)
+    currentCaseType = caseType[0].caseScope
+    a=currentCaseType.replace('[',"")
+    b=a.replace(']',"")
+    c=b.replace('\'',"")
+    typelist=c.split(",")
+    print(typelist)
     currentCaseName = caseN[0].caseName
     currentuser = request.session.get("username")
     request.session["currentCaseId"] = cId
-    return render(request, 'NewEvidencePage.html', {'user': currentuser, 'caseName': currentCaseName, 'caseId': cId,})
+    return render(request, 'NewEvidencePage.html', {'user': currentuser, 'caseName': currentCaseName, 'caseId': cId,'evidencescope':typelist})
 
+
+#add evidence to own case
 def NewEvidenceSubmit(request):
     if request.method == "POST":
         eName=request.POST.get("EviName")
         eviType=request.POST.get("type")
-        principal=request.POST.get("Principal")
+        principal=request.session.get("username")
         evidenceSummary=request.POST.get("summary")
+        loc=request.POST.get("loc")
         cId=request.session.get("currentCaseId")
+        loctaion=loc.strip()
+        caseN = models.SetUpCases.objects.filter(caseId=cId)
+        currentCaseName = caseN[0].caseName
 
-        models.Evidence.objects.create(EvidenceName=eName,ComCaseId=cId,EvidenceType=eviType,EvidenceSummary=evidenceSummary,Principal=principal)
-        currentuser = request.session.get("username")
+        models.Evidence.objects.create(EvidenceName=eName,
+                                       ComCaseId=cId,
+                                       EvidenceType=eviType,
+                                       EvidenceSummary=evidenceSummary,
+                                       Principal=principal,
+                                       EvidenceLoc=loctaion,
+                                       ComCaseName=currentCaseName)
         del request.session["currentCaseId"]
-        return render(request, 'homepage.html', {'user': currentuser})
+        Evidence_list = models.Evidence.objects.filter(ComCaseId=cId)
+        currentuser = request.session.get("username")
+        listlen = len(Evidence_list)
+        return render(request, 'caseEviShowpage.html',
+                      {'user': currentuser, 'caseName': currentCaseName, 'caseId': cId, 'evidences': Evidence_list,
+                       'lenevidence': listlen, })
 
 
 #case preview
@@ -211,9 +232,10 @@ def View(request):
     userCase_list = models.SetUpCases.objects.filter(caseUserName=currentuser)
     return render(request, 'caseView.html',
                   {'user': currentuser, 'caselist': userCase_list, 'listlen': len(userCase_list)})
-def Log(request):
+def Evidence(request):
     currentuser = request.session.get("username")
-    return render(request, 'caseLog.html', {'user': currentuser})
+    Evidence_list = models.Evidence.objects.filter(Principal=currentuser)
+    return render(request, 'Evidence.html', {'user': currentuser,"elist":Evidence_list,'lenevidence':len(Evidence_list)})
 
 
 def Report(request):
@@ -225,3 +247,13 @@ def Report(request):
 def contact(request):
     currentuser =request.session.get("username")
     return render(request, 'contact.html', {'user': currentuser})
+
+def SerchCase(request):
+    currentuser = request.session.get("username")
+    return render(request, 'searchCase.html', {'user': currentuser})
+def sCaseName(request):
+    sforCaseName=request.POST.get("sCasename")
+    print(sforCaseName)
+    result_list=models.SetUpCases.objects.filter(caseName__icontains=sforCaseName)
+    currentuser = request.session.get("username")
+    return render(request, 'searchCase.html', {'user': currentuser,'caselist':result_list,'listlen':len(result_list)})
