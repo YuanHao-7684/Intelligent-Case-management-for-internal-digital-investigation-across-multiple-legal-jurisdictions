@@ -90,7 +90,7 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Log/">Evidence</a>
+							                <a href="/Evidence/">Evidence</a>
 						                    </div>
 										</div>
 									</li>
@@ -117,21 +117,22 @@
 						    </div>
                                  {% for e in evidences %}
                                         <div class="list_inner">
-                                         <h6>{{ e.EvidenceName }}</h6>
+                                            <h4><span style="color: aqua">{{ e.EvidenceName }}</span></h4>
                                                 <div class="text_hiden" id="hidenDiv">
                                                 <p><span style="color: aqua">Principal:</span>{{ e.Principal }} </p>
                                                     <p><span style="color: aqua">Evidence Type:</span>{{ e.EvidenceType }}</p>
-                                                    <p><span style="color: aqua">Evidence Source:</span>{{ e.Source }}</p>
-                                                    <p><span style="color: aqua">Evidence location:</span>{{ e.EvidenceLoc }}
+                                                    <p><span style="color: aqua">Evidence location:</span>{{ e.EvidenceLoc }}</p>
+                                                    <p><span style="color: aqua">Evidence Summary:</span></p>
                                                     <textarea name="" rows="10" cols="30" >{{ e.EvidenceSummary }}</textarea>
                                                 </div>
+                                        <div class="edrea_tm_button transition_link">
+                                                <a href="/ShowEvidenceSource/?evidenceid={{ e.EvidenceId }}">Source</a><a>Delelte</a>
+                                            </div>
 										</div>
                                     {% endfor %}
                                   <br>
-                            <div class="list_inner">
                             <div class="edrea_tm_button transition_link">
                                    <a href="/SetupnewEvidence/?caseId={{ caseId }}" class="newcase_button" style="color: #4CAF50; background-color: aqua">Set up a new Evidence</a>
-                            </div>
                             </div>
                             </div>
 						</div>

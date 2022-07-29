@@ -68,7 +68,7 @@
 				<div class="section_inner">
 					<div class="edrea_tm_contact">
 						<div class="edrea_tm_main_title">
-							<h3>You are creating a new Evidence for:<span class="coloring">{{ caseName }}</span></h3>
+							<h3>Manage your current Data source about: <span class="coloring">{{ eName }}</span></h3>
 						</div>
 						<div class="wrapper">
 							<div class="left">
@@ -90,7 +90,7 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Log/">Evidence</a>
+							                <a href="/Evidence/">Evidence</a>
 						                    </div>
 										</div>
 									</li>
@@ -104,55 +104,39 @@
 								</ul>
 							</div>
 							<div class="right">
-                            <div class="edrea_tm_main_title">
+                             <div class="edrea_tm_button transition_link">
+                                   <a href="/ShowCaseEvidence/?caseid={{ cid }}"  style="color:white; background-color: red">Back to Evidence Page</a>
+                             </div>
+                                <div class="edrea_tm_main_title">
+                                {% if listLen > 0 %}
+							<h5>Current Evidence has<span class="coloring"> {{ listLen }}</span> Source</h5>
+                                {% endif %}
+                                {% if listLen == 0 %}
+                                    <h6>There is no data source in the current Evidence, To help with analysis of the feasibility of your case, please add at least one</h6>
+                                {% endif %}
 						    </div>
-                                <div class="fields">
-                                        <form action="/NewEvidenceSubmit/" method="post" class="contact_form">
-											<ul>
-                                                <li>
-                                                     <h6>Evidence Name:</h6>
-													<div class="list_inner">
-														<input id="EviName" name="EviName" type="text" placeholder="Name" autocomplete="off">
-													</div>
-												</li>
-                                                <li>
-                                                    <h6>Evidence Type</h6>
-                                                    <div class="list_inner">
-													<select id="22" name="type" multip="" style="width:180px;height: 30px;" tip="">
-                                                        <option value="" style="">---Select---</option>
-                                                        <option value="Device" style="">Device</option>
-                                                        <option value="Confession" style="">Confession</option>
-                                                        <option value="Appraisal conclusion" style="">Appraisal conclusion</option>
-                                                        <option hidden="" value=""></option>
-                                                    </select>
-                                                    </div>
-												</li>
-                                                <li>
-                                                    <h6>Select evidence location</h6>
-													<div class="list_inner">
-                                                        {% for i in evidencescope %}
-														<p>
-                                                             {{ i }} <input type="radio" name="loc" value="{{ i }}" />
-                                                        </p>
-                                                        {% endfor %}
-													</div>
-												</li>
-                                                <li>
-                                                    <h6>Principal: {{ user }} <span class="coloring">(You are adding evidence to your own case)<span/></h6>
-												</li>
-                                                <li>
-                                                    <h6>Evidence Summary:</h6>
-                                                    <div class="last">
-											        <textarea id="message" name="summary" placeholder="a short summry to this case(max 1000 words)"></textarea>
-										            </div>
-												</li>
-
-                                            </ul>
-										<div class="edrea_tm_button">
-											<input type="submit" class="btn" value="Submit" />
+                             {% for s in SourceList %}
+                                        <div class="list_inner">
+                                            <h4><span style="color: chocolate">{{ s.SourceName }} </span></h4>
+                                            <h5>{% if s.Private == "1" %} <span class="coloring">(PRIVATE SOURCE) <span/>{% endif %}</h5>
+                                                <div class="text_hiden" id="hidenDiv">
+                                                <p><span style="color: aqua">Principal:</span>{{ s.Principal }} </p>
+                                                    <p><span style="color: chocolate">Type:</span>{{ s.SourceType }}</p>
+                                                    <p><span style="color: chocolate">Manufacturer:</span>{{ s.Manufacturer }}</p>
+                                                    <p><span style="color: chocolate">Model:</span>{{ s.Model }}</p>
+                                                    <p><span style="color: chocolate">System:</span>{{ s.System }}</p>
+                                                    <p><span style="color: chocolate">SerialNumber:</span>{{ s.SerialNumber }}</p>
+                                                </div>
+                                        <div class="edrea_tm_button transition_link">
+                                               <a>Delelte</a>
+                                        </div>
 										</div>
-									</form>
-                                </div>
+                                    {% endfor %}
+                            <div class="list_inner">
+                            <div class="edrea_tm_button transition_link">
+                                   <a href="/SetupnewSource/?evidenceId={{ eid }}" class="newcase_button" style="color: #4CAF50; background-color: aqua">Set up a new Data Source</a>
+                            </div>
+                            </div>
                             </div>
 						</div>
 					</div>
