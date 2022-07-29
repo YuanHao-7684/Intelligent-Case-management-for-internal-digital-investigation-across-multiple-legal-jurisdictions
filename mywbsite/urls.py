@@ -43,4 +43,7 @@ urlpatterns = [
     path('NewEvidenceSubmit/',views.NewEvidenceSubmit,name="/NewEvidenceSubmit/"),
     path('SerchCase/',views.SerchCase,name="/SerchCase/"),
     path('sCaseName/',views.sCaseName,name="/sCaseName/"),
+    path('ShowEvidenceSource/',views.ShowEvidenceSource,name='/ShowEvidenceSource/'),
+    path('SetupnewSource/',views.SetupnewSource,name='/SetupnewSource/'),
+    path('NewSourceSubmit/',views.NewSourceSubmit,name='/NewSourceSubmit/'),
 ]
