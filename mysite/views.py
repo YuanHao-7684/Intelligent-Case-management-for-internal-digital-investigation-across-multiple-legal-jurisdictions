@@ -248,6 +248,7 @@ def contact(request):
     currentuser =request.session.get("username")
     return render(request, 'contact.html', {'user': currentuser})
 
+#case Search pattern
 def SerchCase(request):
     currentuser = request.session.get("username")
     return render(request, 'searchCase.html', {'user': currentuser})
@@ -257,3 +258,54 @@ def sCaseName(request):
     result_list=models.SetUpCases.objects.filter(caseName__icontains=sforCaseName)
     currentuser = request.session.get("username")
     return render(request, 'searchCase.html', {'user': currentuser,'caselist':result_list,'listlen':len(result_list)})
+
+#ShowEvidenceSource
+def ShowEvidenceSource(request):
+    currentuser = request.session.get("username")
+    eId = request.GET.get("evidenceid")
+    result=models.Evidence.objects.filter(EvidenceId=eId)
+    evidenceName=result[0].EvidenceName
+    caseid=result[0].ComCaseId
+    SourceList=models.Source.objects.filter(ComEvidenceId=eId)
+    return render(request, 'EviSourceShowpage.html', {'user': currentuser,'eName':evidenceName,'eid':eId,'cid':caseid,'SourceList':SourceList,'listLen':len(SourceList)})
+
+def SetupnewSource(request):
+    currentuser = request.session.get("username")
+    eId = request.GET.get("evidenceId")
+    result = models.Evidence.objects.filter(EvidenceId=eId)
+    evidenceName = result[0].EvidenceName
+    return render(request, 'NewSourcePage.html', {'user': currentuser,'eName':evidenceName,'eid':eId})
+
+def NewSourceSubmit(request):
+    if request.method == "POST":
+        currentuser = request.session.get("username")
+        eId = request.GET.get("evidenceId")
+        print(eId)
+        result = models.Evidence.objects.filter(EvidenceId=eId)
+        evidenceName = result[0].EvidenceName
+        caseName = result[0].ComCaseName
+        caseId = result[0].ComCaseId
+        sName = request.POST.get("SName")
+        sType = request.POST.get("type")
+        sMan = request.POST.get("Manufacturer")
+        sModel = request.POST.get("Model")
+        sSystem = request.POST.get("System")
+        Private = request.POST.get("pri")
+        Principal = request.session.get("username")
+        SerialNumber = request.POST.get("SerialNumber")
+        AcquTool = request.POST.get("AcquTool")
+
+        models.Source.objects.create(SourceName=sName,
+                                     ComEvidenceId=eId,
+                                     ComEvidenceName=evidenceName,
+                                     ComCaseId=caseId,
+                                     ComCaseName=caseName,
+                                     SourceType=sType,
+                                     Manufacturer=sMan,
+                                     Model=sModel,
+                                     System=sSystem,
+                                     Private=Private,
+                                     Principal=Principal,
+                                     SerialNumber=SerialNumber,
+                                     AcquTool=AcquTool)
+        return render(request, 'EviSourceShowpage.html', {'user': currentuser, 'eName': evidenceName, 'eid': eId})
