@@ -29,7 +29,7 @@ urlpatterns = [
     path('patternpage/',views.patternpage,name='patternpage'),
     path('cases/',views.cases,name='cases'),
     path('View/',views.View,name='View'),
-    path('Report/',views.Report,name='Report'),
+    path('source/',views.source,name='source'),
     path('Evidence/',views.Evidence,name='Evidence'),
     path('contact/',views.contact,name='contact'),
     path('buildLaw/',views.buildLaw,name='buildLaw'),
@@ -43,7 +43,13 @@ urlpatterns = [
     path('NewEvidenceSubmit/',views.NewEvidenceSubmit,name="/NewEvidenceSubmit/"),
     path('SerchCase/',views.SerchCase,name="/SerchCase/"),
     path('sCaseName/',views.sCaseName,name="/sCaseName/"),
+    path('SerchEvidence/',views.SerchEvidence,name="/SerchEvidence/"),
+    path('sEvidenceName/',views.sEvidenceName,name="/sEvidenceName/"),
     path('ShowEvidenceSource/',views.ShowEvidenceSource,name='/ShowEvidenceSource/'),
     path('SetupnewSource/',views.SetupnewSource,name='/SetupnewSource/'),
     path('NewSourceSubmit/',views.NewSourceSubmit,name='/NewSourceSubmit/'),
+
+    path('addEvidenceToOtherCase/',views.addEvidenceToOtherCase,name='/addEvidenceToOtherCase/'),
+    path('veifiyKey/',views.veifiyKey,name='/veifiyKey/'),
+    path('colNewEvidenceSubmit/',views.colNewEvidenceSubmit,name='/colNewEvidenceSubmit/')
 ]
