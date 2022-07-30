@@ -69,6 +69,7 @@
 					<div class="edrea_tm_contact">
 						<div class="edrea_tm_main_title">
 							<h3>Hello, <span class="coloring">{{ user }} !</span> all your cases show here:</h3>
+                            <h5>Your user key is <span class="coloring">{{ userkey }}</span>,This is very important for your cooperate work, please keep it safe<h5>
 						</div>
 						<div class="wrapper">
 							<div class="left">
@@ -76,7 +77,7 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/cases/">DashBoard</a>
+                                                <a href="/cases/">DashBoard</a>
 						                    </div>
 										</div>
 									</li>
@@ -90,14 +91,14 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Evidence/">Evidence</a>
+							                <a href="/Evidence/">Avidence</a>
 						                    </div>
 										</div>
 									</li>
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Report/">Step4:Generate Report</a>
+							                <a href="/source/">Sources</a>
 						                    </div>
 										</div>
 									</li>
@@ -114,7 +115,8 @@
                                                 <div class="text_hiden" id="hidenDiv">
                                                 <P><span class="coloring">Case ID:</span>{{ c.UserInputId }} </P>
                                                 <p><span class="coloring">Case Investigator:</span>{{ c.caseInv }} </p>
-                                                    <p><span class="coloring">Case Type:</span>{{ c.caseScope | upper }}</p>
+                                                    <p><span class="coloring">Case Scope:</span>{{ c.caseScope | upper }}</p>
+                                                    <p><span class="coloring">Case Synopsis:</span></p>
                                                     <textarea name="" rows="10" cols="30" >{{ c.casesynopsis }}</textarea>
                                                 </div>
                                             <div class="edrea_tm_button transition_link">

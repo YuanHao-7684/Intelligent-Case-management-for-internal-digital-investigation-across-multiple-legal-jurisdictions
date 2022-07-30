@@ -76,7 +76,7 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/cases/">DashBoard</a>
+                                                <a href="/cases/">DashBoard</a>
 						                    </div>
 										</div>
 									</li>
@@ -90,14 +90,14 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Evidence/">Evidence</a>
+							                <a href="/Evidence/">Avidence</a>
 						                    </div>
 										</div>
 									</li>
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Report/">Step4:Generate Report</a>
+							                <a href="/source/">Sources</a>
 						                    </div>
 										</div>
 									</li>
@@ -117,8 +117,10 @@
 						    </div>
                              {% for s in SourceList %}
                                         <div class="list_inner">
-                                            <h4><span style="color: chocolate">{{ s.SourceName }} </span></h4>
-                                            <h5>{% if s.Private == "1" %} <span class="coloring">(PRIVATE SOURCE) <span/>{% endif %}</h5>
+                                            <h4><span style="color: chocolate">{{ s.SourceName }} </span> </h4>
+                                            <h5>{% if s.Private != "1" %} <span style="color: #4CAF50">-- (Publicly available plaintext resources) <span/> {% endif %}</h5>
+                                            <h5>{% if s.Private == "1" %} <span class="coloring">(PRIVATE SOURCE) <span/> {% endif %}</h5>
+                                            <h6>{% if s.Encryptionstatus == "1" %} <span class="coloring">(The source is encrypted and requires key disclosure) <span/>{% endif %}</h6>
                                                 <div class="text_hiden" id="hidenDiv">
                                                 <p><span style="color: aqua">Principal:</span>{{ s.Principal }} </p>
                                                     <p><span style="color: chocolate">Type:</span>{{ s.SourceType }}</p>

@@ -63,8 +63,7 @@
 				<div class="section_inner">
 					<div class="edrea_tm_contact">
 						<div class="edrea_tm_main_title">
-							<h5>On this page, you can browse all the evidence you uploaded</h5>
-                            <h5>Or,you can search other people cases and upload evidence for them collaboratively(Need key)</h5>
+                            <h5>You can search other people cases and upload evidence for them collaboratively(Need key)</h5>
                         </div>
 						<div class="wrapper">
 							<div class="left">
@@ -100,37 +99,17 @@
 								</ul>
 							</div>
 							<div class="right" id="input">
-								<div class="fields">
-                            <div class="edrea_tm_main_title">
-                                {% if lenevidence > 0 %}
-							<h5>You have <span class="coloring"> {{ lenevidence }}</span> evidence in total</h5>
-                                {% endif %}
-                                {% if lenevidence == 0 %}
-                                    <h5>There is no evidence in your account, please set up a case first</h5>
-                                {% endif %}
-                                <p>The double-headed arrow links the bound case name</p>
-						    </div>
-                                 {% for e in elist %}
-                                        <div class="list_inner">
-                                         <h6>{{ e.EvidenceName }} &harr; <span class="coloring">{{ e.ComCaseName }}</span></h6>
-                                                <div class="text_hiden" id="hidenDiv">
-                                                    <p><span style="color: aqua">Evidence ID:</span>{{ e.EvidenceId }}</p>
-                                                    <p><span style="color: aqua">Evidence Principal:</span>{{ e.Principal }}</p>
-                                                    <p><span style="color: aqua">Evidence location:</span>{{ e.EvidenceLoc }}</p>
-                                                     <p><span style="color: aqua">Evidence Summary:</span></p>
-                                                    <textarea name="" rows="10" cols="30" >{{ e.EvidenceSummary }}</textarea>
-                                                </div>
+                                <h5>You are trying to add a new evidence for case <span class="coloring">{{ cName }}</span></h5>
+                                <h6>This case is in charge of <span class="coloring"> {{ userofcase }} </span>, please enter this person's key to conduct</h6>
+                                <div class="fields">
+                                     <p><span class="coloring">{{message}} </span></p>
+                                    <form action="/veifiyKey/?caseUser={{ userofcase }}" class="contact_form" method="post">
+                                    <input type="text"  name="userkey" style="width: 400px; height: 30px; " placeholder="Input the key of this preson">
+                                       <div class="edrea_tm_button">
+											<input type="submit" class="btn" value="Submit" />
 										</div>
-                                     <hr />
-                                     <hr />
-                                    {% endfor %}
-                                  <br>
-                            <div class="list_inner">
-                            <div class="edrea_tm_button transition_link">
-                                   <a href="/SerchCase/" class="newcase_button" style="color: #4CAF50; background-color: aqua">Upload Evidence for Others' Cases</a>
-                            </div>
-                            </div>
-                            </div>
+                                    </form>
+                                </div>
                             </div>
 						</div>
 					</div>
