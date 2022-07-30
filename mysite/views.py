@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from mysite import models
 import docx
+import random
 import re
 from docx import Document
 from chardet import detect
@@ -53,10 +54,16 @@ def signup(request):
         password = request.POST.get("newpassword", None)
         email = request.POST.get("newemail", None)
         userlist = models.User.objects.all()
-        #
+        key=""
+        for i in range(6):
+            num =random.randint(0,9)
+            letter = chr(random.randint(97,122))
+            Letter = chr(random.randint(65,90))
+            s = str(random.choice([num,letter,Letter]))
+            key+=s
         for u in userlist:
             print(u.user,u.password,u.email)
-        flag = models.User.objects.get_or_create(user=username, email=email, password=password)
+        flag = models.User.objects.get_or_create(user=username, email=email, password=password,userKey=key)
         if flag[1] == False :
             messagelist="user already exist,please login"
             return render(request, 'index.html', {'message': messagelist})
@@ -139,7 +146,6 @@ def NewcaseSubmit(request):
         caseName = request.POST.get("Name", None)
         userinputID = request.POST.get("ID", None)
         caseScope = request.POST.getlist("area")
-        InvName = request.POST.get("InvName", None)
         InvEmail = request.POST.get("InvEmail", None)
         caseSynopsis = request.POST.get("synopsis", None)
         caseType = request.POST.getlist("Type")
@@ -147,7 +153,7 @@ def NewcaseSubmit(request):
         models.SetUpCases.objects.create(UserInputId=userinputID,
                                          caseName=caseName,
                                          caseScope=caseScope,
-                                         caseInv=InvName,
+                                         caseInv=currentuser,
                                          caseInvEmail=InvEmail,
                                          caseType=caseType,
                                          casesynopsis=caseSynopsis,
@@ -229,18 +235,34 @@ def View(request):
     #        strict_country.append(country_list[c].country)
     #case process
     currentuser = request.session.get("username")
-    userCase_list = models.SetUpCases.objects.filter(caseUserName=currentuser)
+    query=models.User.objects.filter(user=currentuser)
+    userkey=query[0].userKey
+    userCase_list = models.SetUpCases.objects.filter(caseInv=currentuser)
     return render(request, 'caseView.html',
-                  {'user': currentuser, 'caselist': userCase_list, 'listlen': len(userCase_list)})
+                  {'user': currentuser, 'caselist': userCase_list, 'listlen': len(userCase_list),'userkey': userkey})
 def Evidence(request):
     currentuser = request.session.get("username")
     Evidence_list = models.Evidence.objects.filter(Principal=currentuser)
     return render(request, 'Evidence.html', {'user': currentuser,"elist":Evidence_list,'lenevidence':len(Evidence_list)})
 
-
-def Report(request):
+#Source mananget page
+def source(request):
     currentuser = request.session.get("username")
-    return render(request, 'caseReport.html', {'user': currentuser})
+    resultlist= models.Source.objects.filter(Principal=currentuser)
+    return render(request, 'source.html', {'user': currentuser,'slist':resultlist,'lens':len(resultlist),})
+
+
+#evidence Search pattern
+def SerchEvidence(request):
+    currentuser = request.session.get("username")
+    return render(request, 'searchEvidence.html', {'user': currentuser})
+def sEvidenceName(request):
+    sforEvidenceName = request.POST.get("sEviname")
+
+    result_list = models.Evidence.objects.filter(EvidenceName__icontains=sforEvidenceName)
+    print(result_list)
+    currentuser = request.session.get("username")
+    return render(request, 'searchEvidence.html', {'user': currentuser, 'elist': result_list, 'listlen': len(result_list)})
 
 
 # contact
@@ -248,16 +270,74 @@ def contact(request):
     currentuser =request.session.get("username")
     return render(request, 'contact.html', {'user': currentuser})
 
-#case Search pattern
+
+#case Search pattern & add evidence to other case
 def SerchCase(request):
     currentuser = request.session.get("username")
     return render(request, 'searchCase.html', {'user': currentuser})
 def sCaseName(request):
     sforCaseName=request.POST.get("sCasename")
-    print(sforCaseName)
+
     result_list=models.SetUpCases.objects.filter(caseName__icontains=sforCaseName)
     currentuser = request.session.get("username")
     return render(request, 'searchCase.html', {'user': currentuser,'caselist':result_list,'listlen':len(result_list)})
+
+def addEvidenceToOtherCase(request):
+    caseId = request.GET.get("caseid")
+    result=models.SetUpCases.objects.filter(caseId=caseId)
+    userofcase=result[0].caseInv
+    caseName=result[0].caseName
+    request.session["addcaseId"] = caseId
+    return render(request, 'keyinputCase.html', {'user': currentuser, 'userofcase': userofcase,'cName':caseName})
+
+def veifiyKey(request):
+    currentuser = request.session.get("username")
+    caseId = request.session.get("addcaseId")
+    query=models.SetUpCases.objects.filter(caseId=caseId)
+    caseName=query[0].caseName
+    currentCaseType = query[0].caseScope
+    a = currentCaseType.replace('[', "")
+    b = a.replace(']', "")
+    c = b.replace('\'', "")
+    typelist = c.split(",")
+    print(typelist)
+    caseUser = request.GET.get("caseUser")
+    result=models.User.objects.filter(user=caseUser)
+    Key = result[0].userKey
+    inputkey=request.POST.get("userkey")
+    if Key == inputkey:
+        return render(request, 'colNewevidence.html',
+                      {'user': currentuser, 'caseName': caseName, 'caseId': caseId, 'evidencescope': typelist})
+    else:
+        messagelist = "Incorrect key, please confirm with this user"
+        return render(request, 'keyinputCase.html', {'message': messagelist,'user': currentuser, 'userofcase': caseUser,'cName':caseName})
+def colNewEvidenceSubmit(request):
+    if request.method == "POST":
+        eName = request.POST.get("EviName")
+        eviType = request.POST.get("type")
+        principal = request.session.get("username")
+        evidenceSummary = request.POST.get("summary")
+        loc = request.POST.get("loc")
+        cId = request.session.get("addcaseId")
+        loctaion = loc.strip()
+        caseN = models.SetUpCases.objects.filter(caseId=cId)
+        currentCaseName = caseN[0].caseName
+
+        models.Evidence.objects.create(EvidenceName=eName,
+                                       ComCaseId=cId,
+                                       EvidenceType=eviType,
+                                       EvidenceSummary=evidenceSummary,
+                                       Principal=principal,
+                                       EvidenceLoc=loctaion,
+                                       ComCaseName=currentCaseName)
+        del request.session["addcaseId"]
+        currentuser = request.session.get("username")
+        return render(request, 'searchCase.html', {'user': currentuser})
+
+
+
+
+
 
 #ShowEvidenceSource
 def ShowEvidenceSource(request):
@@ -293,6 +373,7 @@ def NewSourceSubmit(request):
         Private = request.POST.get("pri")
         Principal = request.session.get("username")
         SerialNumber = request.POST.get("SerialNumber")
+        Ssta = request.POST.get("status")
         AcquTool = request.POST.get("AcquTool")
 
         models.Source.objects.create(SourceName=sName,
@@ -307,5 +388,11 @@ def NewSourceSubmit(request):
                                      Private=Private,
                                      Principal=Principal,
                                      SerialNumber=SerialNumber,
-                                     AcquTool=AcquTool)
-        return render(request, 'EviSourceShowpage.html', {'user': currentuser, 'eName': evidenceName, 'eid': eId})
+                                     AcquTool=AcquTool,
+                                     Encryptionstatus=Ssta)
+
+
+        SourceList = models.Source.objects.filter(ComEvidenceId=eId)
+        return render(request, 'EviSourceShowpage.html',
+                      {'user': currentuser, 'eName': evidenceName, 'eid': eId, 'cid': caseId, 'SourceList': SourceList,
+                       'listLen': len(SourceList)})

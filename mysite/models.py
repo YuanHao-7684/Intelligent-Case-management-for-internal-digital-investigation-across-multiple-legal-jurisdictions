@@ -6,7 +6,7 @@ class User(models.Model):
     user = models.CharField(max_length=32)
     password = models.CharField(max_length=16)
     email = models.CharField(max_length=32)
-
+    userKey = models.CharField(max_length=16)
 
 class LawIno(models.Model):
     country = models.CharField(max_length=64)
@@ -64,6 +64,7 @@ class Source(models.Model):
     Model = models.CharField(max_length=32)
     System = models.CharField(max_length=32)
     Private = models.CharField(max_length=2)
+    Encryptionstatus = models.CharField(max_length=2)
     Principal = models.CharField(max_length=32)
     SerialNumber =models.CharField(max_length=128)
     AcquTool = models.CharField(max_length= 32)
