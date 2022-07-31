@@ -25,6 +25,7 @@ urlpatterns = [
     path("",views.index,name='index'),
     path('signup/', views.signup, name='signup'),
     path('signin/', views.signin, name='signin'),
+    path('signout/',views.signout, name='/signout/'),
     path('homepage/', views.homepage, name='homepage'),
     path('patternpage/',views.patternpage,name='patternpage'),
     path('cases/',views.cases,name='cases'),
@@ -50,6 +51,9 @@ urlpatterns = [
     path('NewSourceSubmit/',views.NewSourceSubmit,name='/NewSourceSubmit/'),
 
     path('addEvidenceToOtherCase/',views.addEvidenceToOtherCase,name='/addEvidenceToOtherCase/'),
+    path('addsourceToOtherEvidence/',views.addsourceToOtherEvidence,name='/addsourceToOtherEvidence/'),
     path('veifiyKey/',views.veifiyKey,name='/veifiyKey/'),
+    path('veifiyKeyE/',views.veifiyKeyE,name='veifiyKeyE'),
+    path('colNewSourceSubmit/',views.colNewSourceSubmit,name='/colNewSourceSubmit/'),
     path('colNewEvidenceSubmit/',views.colNewEvidenceSubmit,name='/colNewEvidenceSubmit/')
 ]
