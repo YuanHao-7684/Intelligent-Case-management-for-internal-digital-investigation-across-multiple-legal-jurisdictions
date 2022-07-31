@@ -19,7 +19,8 @@ currentuser = ""
 
 open_country=['EEA', 'United Kingdom', 'UK', 'Kingdom', 'India', 'Hong Kong', 'Hong','Kong','United States', 'US', 'States']
 neutral_country=['Russian', 'Colombia', 'Japan', 'Ukraine', 'South Korea', 'Korea', 'Nigeria', 'Argentina']
-strict_country=['China', 'Turkey', 'Brazil', 'Peru', 'Philippines', 'Thailand', 'Malaysia', 'Singapore', 'Egypt', 'South Africa', 'Africa', 'Morocco', 'Canada', 'Mexico']
+strict_country=['China', 'Turkey', 'Brazil', 'Peru', 'Philippines', 'Thailand', 'Malaysia', 'Singapore', 'Egypt', 'South Africa',
+                'Africa', 'Morocco', 'Canada', 'Mexico']
 #index page
 def index(request):
     initialization=""
@@ -91,6 +92,11 @@ def signin(request):
         request.session["username"]=userName
         currentuser=request.session.get("username")
         return render(request, 'homepage.html', {'user': currentuser})
+
+def signout(request):
+    request.session.clear()
+    initialization = ""
+    return render(request, 'index.html', {'user': initialization})
 
 def caseinput(request):
     if request.method == "POST":
@@ -300,7 +306,7 @@ def veifiyKey(request):
     b = a.replace(']', "")
     c = b.replace('\'', "")
     typelist = c.split(",")
-    print(typelist)
+
     caseUser = request.GET.get("caseUser")
     result=models.User.objects.filter(user=caseUser)
     Key = result[0].userKey
@@ -334,9 +340,73 @@ def colNewEvidenceSubmit(request):
         currentuser = request.session.get("username")
         return render(request, 'searchCase.html', {'user': currentuser})
 
+def addsourceToOtherEvidence(request):
+    currentuser = request.session.get("username")
+    eviId = request.GET.get("Eid")
+    result = models.Evidence.objects.filter(EvidenceId=eviId)
+    ComcaseId = result[0].ComCaseId
+    EvidenceName = result[0].EvidenceName
+    OwnerOfEvidence = result[0].Principal
+    result2 = models.SetUpCases.objects.filter(caseId=ComcaseId)
+    OwnerOfcase = result2[0].caseInv
+    SourceList = models.Source.objects.filter(ComEvidenceId=eviId)
+    request.session['EvidenceName']=EvidenceName
+    request.session['addevidenceId']=eviId
+    if OwnerOfcase == currentuser:
+        messagelist = 'This evidence is added under your case by someone else via key verification, so you can add it directly in the case'
+        return render(request, 'EviSourceShowpage.html',{'user': currentuser,'eName':EvidenceName,'eid':eviId,'cid':ComcaseId,'SourceList':SourceList,'listLen':len(SourceList),'messagelist':messagelist})
+    else:
+        return render(request, 'keyinputEvi.html', {'user': currentuser, 'userofEvidence': OwnerOfEvidence, 'eName': EvidenceName})
 
+def veifiyKeyE(request):
+    currentuser = request.session.get("username")
+    eUser = request.GET.get("EvidenceUser")
+    Keyresult =models.User.objects.filter(user=eUser)
+    Key=Keyresult[0].userKey
+    inputkey = request.POST.get("userkey")
 
+    EvidenceName = request.session.get('EvidenceName')
+    if Key == inputkey:
+        return render(request, 'colNewSource.html',{'user': currentuser, })
+    else:
+        messagelist = "Incorrect key, please confirm with this user"
+        return render(request, 'keyinputEvi.html', {'message': messagelist,'user': currentuser, 'userofEvidence': eUser, 'eName': EvidenceName})
+def colNewSourceSubmit(request):
+    if request.method == "POST":
+        currentuser = request.session.get("username")
+        eId = request.session.get("addevidenceId")
+        result = models.Evidence.objects.filter(EvidenceId=eId)
+        evidenceName = result[0].EvidenceName
+        caseName = result[0].ComCaseName
+        caseId = result[0].ComCaseId
+        sName = request.POST.get("SName")
+        sType = request.POST.get("type")
+        sMan = request.POST.get("Manufacturer")
+        sModel = request.POST.get("Model")
+        sSystem = request.POST.get("System")
+        Private = request.POST.get("pri")
+        Principal = request.session.get("username")
+        SerialNumber = request.POST.get("SerialNumber")
+        Ssta = request.POST.get("status")
+        AcquTool = request.POST.get("AcquTool")
 
+        models.Source.objects.create(SourceName=sName,
+                                     ComEvidenceId=eId,
+                                     ComEvidenceName=evidenceName,
+                                     ComCaseId=caseId,
+                                     ComCaseName=caseName,
+                                     SourceType=sType,
+                                     Manufacturer=sMan,
+                                     Model=sModel,
+                                     System=sSystem,
+                                     Private=Private,
+                                     Principal=Principal,
+                                     SerialNumber=SerialNumber,
+                                     AcquTool=AcquTool,
+                                     Encryptionstatus=Ssta)
+
+        del request.session["addevidenceId"]
+        return render(request, 'searchEvidence.html', {'user': currentuser})
 
 
 #ShowEvidenceSource
