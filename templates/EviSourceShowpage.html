@@ -37,8 +37,10 @@
 						<li><a href="/homepage/">Home</a></li>
 						<li><a href="/patternpage/">pattern</a></li>
 						<li class="active"><a href="#">cases management</a></li>
-						<li><a href="#laws">Contact and feedback</a></li>
-                        <li>Hello {{user}} </li>
+						<li><a href="/contact/">feedback</a></li>
+                        <li>Hello <span class="coloring">{{user}} </span>
+							<a href="/signout/" style="color: #4481eb;">Sign Out</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -55,8 +57,10 @@
 						<li><a href="/homepage/">Home</a></li>
 						<li><a href="/patternpage/">pattern</a></li>
 						<li class="active"><a href="/cases/">cases management</a></li>
-						<li><a href="/contact/">Contact and feedback</a></li>
-                        <li>Hello <span class="coloring">{{user}} </span></li>
+						<li><a href="/contact/">feedback</a></li>
+                        <li>Hello <span class="coloring">{{user}} </span>
+							<a href="/signout/" style="color: #4481eb;">Sign Out</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -106,6 +110,7 @@
 							<div class="right">
                              <div class="edrea_tm_button transition_link">
                                    <a href="/ShowCaseEvidence/?caseid={{ cid }}"  style="color:white; background-color: red">Back to Evidence Page</a>
+                                 <p style="color: #F52225">{{ messagelist }}</p>
                              </div>
                                 <div class="edrea_tm_main_title">
                                 {% if listLen > 0 %}

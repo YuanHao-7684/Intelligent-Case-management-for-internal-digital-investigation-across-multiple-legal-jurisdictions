@@ -32,8 +32,10 @@
 						<li><a href="/homepage/">Home</a></li>
 						<li><a href="/patternpage/">pattern</a></li>
 						<li class="active"><a href="/cases/">cases management</a></li>
-						<li><a href="/contact/">Contact and feedback</a></li>
-                        <li>Hello {{user}} </li>
+						<li><a href="/contact/">feedback</a></li>
+                        <li>Hello <span class="coloring">{{user}} </span>
+							<a href="/signout/" style="color: #4481eb;">Sign Out</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -65,9 +67,8 @@
 				<div class="section_inner">
 					<div class="edrea_tm_contact">
 						<div class="edrea_tm_main_title">
-                            <h6>On this page, you can browse all the evidence you uploaded</h6>
-                            <h6>Or,you can search other people cases and upload evidence for them collaboratively(Need key)</h6>
-						</div>
+                            <h5>You can search other peoples Evidence and upload source for them collaboratively(Need key)</h5>
+                        </div>
 						<div class="wrapper">
 							<div class="left">
 								<ul>
@@ -88,7 +89,7 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Evidence/">Evidence</a>
+							                <a href="/Evidence/">Avidence</a>
 						                    </div>
 										</div>
 									</li>
@@ -102,39 +103,17 @@
 								</ul>
 							</div>
 							<div class="right" id="input">
-								<div class="fields">
-                                <div class="edrea_tm_main_title">
-                                {% if lens > 0 %}
-							    <h5>You have <span class="coloring"> {{ lens }}</span> source in total</h5>
-                                {% endif %}
-                                {% if lens == 0 %}
-                                    <h5>There is no source in your account, please set up a case first</h5>
-                                {% endif %}
-                                <p>The double-headed arrow links the bound evidence and case</p>
-						    </div>
-                                 {% for s in slist %}
-                                        <div class="list_inner">
-                                            <h6><span style="color: chocolate">{{ s.SourceName }} </span> &harr; <span style="color: aqua">{{ s.ComEvidenceName }}</span>&harr; <span class="coloring">{{ s.ComCaseName  }}</span></h6>
-                                            <p>{% if s.Private != "1" %} <span style="color: #4CAF50">-- (Publicly available plaintext resources) <span/> {% endif %}</p>
-                                            <p>{% if s.Private == "1" %} <span class="coloring">(PRIVATE SOURCE) <span/> {% endif %}</p>
-                                            <p>{% if s.Encryptionstatus == "1" %} <span class="coloring">(The source is encrypted and requires key disclosure) <span/>{% endif %}</p>
-                                                <div class="text_hiden" id="hidenDiv">
-                                                <p><span style="color: aqua">Principal:</span>{{ s.Principal }} </p>
-                                                    <p><span style="color: chocolate">Type:</span>{{ s.SourceType }}</p>
-                                                    <p><span style="color: chocolate">Manufacturer:</span>{{ s.Manufacturer }}</p>
-                                                    <p><span style="color: chocolate">Model:</span>{{ s.Model }}</p>
-                                                    <p><span style="color: chocolate">System:</span>{{ s.System }}</p>
-                                                    <p><span style="color: chocolate">SerialNumber:</span>{{ s.SerialNumber }}</p>
-                                                </div>
+                                <h5>You are trying to add a new source for Evidence <span class="coloring">{{ eName }}</span></h5>
+                                <h6>This evidence is in charge of <span class="coloring"> {{ userofEvidence }} </span>, please enter this person's key to conduct</h6>
+                                <div class="fields">
+                                     <p><span class="coloring">{{message}} </span></p>
+                                    <form action="/veifiyKeyE/?EvidenceUser={{ userofEvidence }}" class="contact_form" method="post">
+                                    <input type="text"  name="userkey" style="width: 400px; height: 30px; " placeholder="Input the key of this preson">
+                                       <div class="edrea_tm_button">
+											<input type="submit" class="btn" value="Submit" />
 										</div>
-                                     <hr />
-                                     <hr />
-                                    {% endfor %}
-                                 <div class="list_inner">
-                            <div class="edrea_tm_button transition_link">
-                                   <a href="/SerchEvidence/" class="newcase_button" style="color: #4CAF50; background-color: aqua">Upload Source for Others' Evidence</a>
-                            </div>
-                            </div>
+                                    </form>
+                                </div>
                             </div>
 						</div>
 					</div>
