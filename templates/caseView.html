@@ -111,6 +111,8 @@
 							<div class="right">
                             <div class="edrea_tm_main_title">
 							<h5>Your current account has<span class="coloring"> {{ listlen }}</span> cases</h5>
+                                <h6>You can browse all evidences contained by clicking the 'Evidence' button below the case</h6>
+                                <p style="color: #F52225">Note：Please use the delete button carefully, it will clear the case itself and all the evidence and sources related</p>
 						    </div>
                             <!-- CASE INFOR -->
                                     {% for c in caselist %}
@@ -124,7 +126,7 @@
                                                     <textarea name="" rows="10" cols="30" >{{ c.casesynopsis }}</textarea>
                                                 </div>
                                             <div class="edrea_tm_button transition_link">
-                                                <a href="/ShowCaseEvidence/?caseid={{ c.caseId }}">Evidence</a><a>Delelte</a>
+                                                <a href="/ShowCaseEvidence/?caseid={{ c.caseId }}">Evidence</a><a href="/DeleteCase/?caseid={{ c.caseId }}">Delelte</a>
                                             </div>
 										</div>
                                     {% endfor %}

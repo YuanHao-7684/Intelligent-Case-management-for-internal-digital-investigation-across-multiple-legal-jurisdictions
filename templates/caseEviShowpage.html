@@ -118,6 +118,7 @@
                                 {% if lenevidence == 0 %}
                                     <h5>There is no evidence in the current case, please add one</h5>
                                 {% endif %}
+                             <p style="color: #F52225">Note：Please use the delete button carefully, it will clear Evidence itself and all the  sources related</p>
 						    </div>
                                  {% for e in evidences %}
                                         <div class="list_inner">
@@ -130,7 +131,7 @@
                                                     <textarea name="" rows="10" cols="30" >{{ e.EvidenceSummary }}</textarea>
                                                 </div>
                                         <div class="edrea_tm_button transition_link">
-                                                <a href="/ShowEvidenceSource/?evidenceid={{ e.EvidenceId }}">Source</a><a>Delelte</a>
+                                                <a href="/ShowEvidenceSource/?evidenceid={{ e.EvidenceId }}">Source</a><a href="/DeleteEvidence/?evidenceid={{ e.EvidenceId }}">Delelte</a>
                                             </div>
 										</div>
                                     {% endfor %}
