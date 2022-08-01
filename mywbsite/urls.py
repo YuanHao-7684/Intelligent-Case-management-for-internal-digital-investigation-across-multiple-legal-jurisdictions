@@ -31,7 +31,7 @@ urlpatterns = [
     path('cases/',views.cases,name='cases'),
     path('View/',views.View,name='View'),
     path('source/',views.source,name='source'),
-    path('Evidence/',views.Evidence,name='Evidence'),
+    path('Evidence/',views.evidence,name='Evidence'),
     path('contact/',views.contact,name='contact'),
     path('buildLaw/',views.buildLaw,name='buildLaw'),
     path('lawinput/',views.lawinput,name='lawinput'),
@@ -55,5 +55,9 @@ urlpatterns = [
     path('veifiyKey/',views.veifiyKey,name='/veifiyKey/'),
     path('veifiyKeyE/',views.veifiyKeyE,name='veifiyKeyE'),
     path('colNewSourceSubmit/',views.colNewSourceSubmit,name='/colNewSourceSubmit/'),
-    path('colNewEvidenceSubmit/',views.colNewEvidenceSubmit,name='/colNewEvidenceSubmit/')
+    path('colNewEvidenceSubmit/',views.colNewEvidenceSubmit,name='/colNewEvidenceSubmit/'),
+
+    path('DeleteCase/',views.DeleteCase,name='/DeleteCase/'),
+    path('DeleteEvidence/',views.DeleteEvidence,name='/DeleteEvidence/'),
+    path('DeleteSource/',views.DeleteSource,name='/DeleteSource/'),
 ]
