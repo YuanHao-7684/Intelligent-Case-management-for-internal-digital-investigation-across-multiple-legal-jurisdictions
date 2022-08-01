@@ -4,6 +4,7 @@ from django.db.models import QuerySet
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 from mysite import models
+from mysite.models import User, Cases, Source, Evidence, SetUpCases
 import docx
 import random
 import re
@@ -12,7 +13,6 @@ from chardet import detect
 # Create your views here.
 from django.shortcuts import HttpResponse
 from mysite.forms import UploadFileForm
-from mysite.models import User
 import numpy as np
 messagelist = ""
 currentuser = ""
@@ -246,7 +246,7 @@ def View(request):
     userCase_list = models.SetUpCases.objects.filter(caseInv=currentuser)
     return render(request, 'caseView.html',
                   {'user': currentuser, 'caselist': userCase_list, 'listlen': len(userCase_list),'userkey': userkey})
-def Evidence(request):
+def evidence(request):
     currentuser = request.session.get("username")
     Evidence_list = models.Evidence.objects.filter(Principal=currentuser)
     return render(request, 'Evidence.html', {'user': currentuser,"elist":Evidence_list,'lenevidence':len(Evidence_list)})
@@ -466,3 +466,55 @@ def NewSourceSubmit(request):
         return render(request, 'EviSourceShowpage.html',
                       {'user': currentuser, 'eName': evidenceName, 'eid': eId, 'cid': caseId, 'SourceList': SourceList,
                        'listLen': len(SourceList)})
+
+#delete function
+def DeleteCase(request):
+    delcaseid=request.GET.get('caseid')
+    print(delcaseid)
+    case = SetUpCases.objects.filter(caseId=delcaseid)
+    case.delete()
+
+    evi = Evidence.objects.filter(ComCaseId=delcaseid)
+    evi.delete()
+
+    source= Source.objects.filter(ComCaseId=delcaseid)
+    source.delete()
+
+    currentuser = request.session.get("username")
+
+    query = models.User.objects.filter(user=currentuser)
+    userkey = query[0].userKey
+    userCase_list = SetUpCases.objects.filter(caseInv=currentuser)
+    return render(request, 'caseView.html',
+                      {'user': currentuser, 'caselist': userCase_list, 'listlen': len(userCase_list),
+                       'userkey': userkey})
+def DeleteEvidence(request):
+    delevidenceid = request.GET.get('evidenceid')
+    evi = Evidence.objects.filter(EvidenceId=delevidenceid)
+    cId = evi[0].ComCaseId
+    evi.delete()
+
+    source= Source.objects.filter(ComEvidenceId=delevidenceid)
+    source.delete()
+
+    caseN = SetUpCases.objects.filter(caseId=cId)
+    currentCaseName = caseN[0].caseName
+    Evidence_list = Evidence.objects.filter(ComCaseId=cId)
+    currentuser = request.session.get("username")
+    listlen = len(Evidence_list)
+    return render(request, 'caseEviShowpage.html',
+                  {'user': currentuser, 'caseName': currentCaseName, 'caseId': cId, 'evidences': Evidence_list,
+                   'lenevidence': listlen, })
+def DeleteSource(request):
+    delsourceid = request.GET.get('sid')
+    source= Source.objects.filter(SourceId=delsourceid)
+    eId=source[0].ComEvidenceId
+    source.delete()
+    currentuser = request.session.get("username")
+    result = models.Evidence.objects.filter(EvidenceId=eId)
+    evidenceName = result[0].EvidenceName
+    caseid = result[0].ComCaseId
+    SourceList = models.Source.objects.filter(ComEvidenceId=eId)
+    return render(request, 'EviSourceShowpage.html',
+                  {'user': currentuser, 'eName': evidenceName, 'eid': eId, 'cid': caseid, 'SourceList': SourceList,
+                   'listLen': len(SourceList)})
