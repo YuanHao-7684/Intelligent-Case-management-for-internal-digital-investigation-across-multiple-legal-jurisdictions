@@ -72,8 +72,8 @@
 				<div class="section_inner">
 					<div class="edrea_tm_contact">
 						<div class="edrea_tm_main_title">
-							<h3>Hello, <span class="coloring">{{ user }} !</span> all your cases show here:</h3>
-                            <h5>Your user key is <span class="coloring">{{ userkey }}</span>,This is very important for your cooperate work, please keep it safe<h5>
+							<h3>Hello, <span class="coloring">{{ user }} !</span></h3>
+                            <h5>You are currently viewing Case <span class="coloring">{{ caseName }}</span>.The following shows a real-time status report for the case and a legal feasibility report</h5>
 						</div>
 						<div class="wrapper">
 							<div class="left">
@@ -109,37 +109,27 @@
 								</ul>
 							</div>
 							<div class="right">
-                            <div class="edrea_tm_main_title">
-							<h5>Your current account has<span class="coloring"> {{ listlen }}</span> cases</h5>
-                                <h6>You can browse all evidences contained by clicking the 'Evidence' button below the case</h6>
-                                <p style="color: #F52225">Note：Please use the delete button carefully, it will clear the case itself and all the evidence and sources related</p>
-						    </div>
-                            <!-- CASE INFOR -->
-                                    {% for c in caselist %}
-                                        <div class="list_inner">
-                                            <h4><span class="coloring">{{ c.caseName }}</span></h4>
-                                             <div class="edrea_tm_button transition_link">
-                                                <a href="/AnalyzeMode/?caseid={{ c.caseId }}">Analyze This Case</a>
-                                            </div>
-                                                <div class="text_hiden" id="hidenDiv">
-                                                <P><span class="coloring">Case ID:</span>{{ c.UserInputId }} </P>
-                                                <p><span class="coloring">Case Investigator:</span>{{ c.caseInv }} </p>
-                                                    <p><span class="coloring">Case Scope:</span>{{ c.caseScope | upper }}</p>
-                                                    <p><span class="coloring">Case Synopsis:</span></p>
-                                                    <textarea name="" rows="10" cols="30" >{{ c.casesynopsis }}</textarea>
-                                                </div>
-                                            <div class="edrea_tm_button transition_link">
-                                                <a href="/ShowCaseEvidence/?caseid={{ c.caseId }}">Evidence</a><a href="/DeleteCase/?caseid={{ c.caseId }}">Delelte</a>
-                                            </div>
-										</div>
-                                        <hr/>
-                                        <hr/>
-                                    {% endfor %}
-                             <div class="list_inner">
-                                  <div class="edrea_tm_button transition_link">
-                                   <a href="/Setupnewcase/" class="newcase_button" style="color: #4CAF50; background-color: aqua">Set up a new case</a>
-                                  </div>
+                            <div class="edrea_tm_button transition_link">
+                                   <a href="/View/"  style="color:white; background-color: red">Back to my cases</a>
                              </div>
+                                <h6>There are {{ Elen }} pieces of evidence in the current case,as following:</h6>
+                            {% for e in Evidence %}
+                            <div class="list_inner">
+                                            <h4><span class="coloring">{{ e.EvidenceName }}</span></h4>
+                            </div>
+                            {% endfor %}
+                            <h6>There are {{ Slen }} pieces of source in the current case,as following:</h6>
+                            {% for s in Source %}
+                            <div class="list_inner">
+                                            <h4><span class="coloring">{{ s.SourceName }}</span></h4>
+                            </div>
+                            {% endfor %}
+                                <h6>The case is currently completed by the following participants:</h6>
+                            {% for p in Partic %}
+                                <div class="list_inner">
+                                            <h4><span class="coloring">{{ p }}</span></h4>
+                               </div>
+                            {% endfor %}
                             </div>
 						</div>
 					</div>
