@@ -17,8 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from mysite import views
-from mysite.views import index
-from mysite.views import signup
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -60,4 +59,5 @@ urlpatterns = [
     path('DeleteCase/',views.DeleteCase,name='/DeleteCase/'),
     path('DeleteEvidence/',views.DeleteEvidence,name='/DeleteEvidence/'),
     path('DeleteSource/',views.DeleteSource,name='/DeleteSource/'),
+    path('AnalyzeMode/',views.AnalyzeMode,name='/AnalyzeMode/'),
 ]
