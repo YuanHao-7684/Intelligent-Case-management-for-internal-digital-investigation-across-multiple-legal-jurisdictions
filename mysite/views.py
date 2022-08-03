@@ -166,7 +166,7 @@ def NewcaseSubmit(request):
                                          caseUserName=currentuser)
     # case process
     currentuser = request.session.get("username")
-    userCase_list = models.SetUpCases.objects.filter(caseUserName=currentuser)
+    userCase_list = models.SetUpCases.objects.filter(caseInv=currentuser)
     return render(request, 'caseView.html',{'user': currentuser, 'caselist': userCase_list, 'listlen': len(userCase_list)})
 
 
@@ -294,6 +294,7 @@ def addEvidenceToOtherCase(request):
     userofcase=result[0].caseInv
     caseName=result[0].caseName
     request.session["addcaseId"] = caseId
+    currentuser = request.session.get("username")
     return render(request, 'keyinputCase.html', {'user': currentuser, 'userofcase': userofcase,'cName':caseName})
 
 def veifiyKey(request):
@@ -518,3 +519,36 @@ def DeleteSource(request):
     return render(request, 'EviSourceShowpage.html',
                   {'user': currentuser, 'eName': evidenceName, 'eid': eId, 'cid': caseid, 'SourceList': SourceList,
                    'listLen': len(SourceList)})
+
+def AnalyzeMode(request):
+    caseid=request.GET.get('caseid')
+    case=models.SetUpCases.objects.filter(caseId=caseid)
+    caseName=case[0].caseName
+    currentuser = request.session.get("username")
+    caseEvidece=[]
+    caseEvideceresult=models.Evidence.objects.filter(ComCaseId=caseid)
+    for i in caseEvideceresult:
+        caseEvidece.append(i)
+    caseSource=[]
+    caseSourceresult=models.Source.objects.filter(ComCaseId=caseid)
+
+    Participants=[]
+    Participants.append(currentuser)
+    for j in caseSourceresult:
+        caseSource.append(j)
+
+    for c in caseEvidece:
+        print(c.EvidenceName)
+        if c.Principal != currentuser:
+            Participants.append(c.Principal)
+    for s in caseSource:
+        print(s.SourceName)
+        if s.Principal != currentuser:
+            Participants.append(s.Principal)
+
+    for p in Participants:
+        print(p)
+    currentuser = request.session.get("username")
+    return render(request, 'analyzeCase.html', {'user': currentuser,'caseName':caseName,'Evidence':caseEvidece,
+                                                'Source':caseSource,'Elen':len(caseEvidece),'Slen':len(caseSource),
+                                                'Partic':Participants})
