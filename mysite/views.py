@@ -545,10 +545,76 @@ def AnalyzeMode(request):
         print(s.SourceName)
         if s.Principal != currentuser:
             Participants.append(s.Principal)
-
     for p in Participants:
         print(p)
+
+    query = models.SetUpCases.objects.filter(caseId=caseid)
+
+    currentCaseType = query[0].caseScope
+    a = currentCaseType.replace('[', "")
+    b = a.replace(']', "")
+    c = b.replace('\'', "")
+    d = c.replace(' ',"")
+    typelist = d.split(",")
+
+    #Data transfer analysiz
+    countrylist=['EU','US','UK','CHINA','RUSSIAN','INDIA']
+    countryList=[]
+    confilactintransfer=[]
+    EUabntrans=[]
+    dataTransfermatrix=[[0,1,1,0,1,0],
+                        [0,0,0,0,0,0],
+                        [1,1,0,0,0,0],
+                        [0,1,0,0,0,0,],
+                        [1,1,0,0,0,0],
+                        [0,1,0,0,0,0]]
+
+    for casecountry in typelist:
+        if casecountry == 'EU':
+            countryList = dataTransfermatrix[0]
+            for i in range(len(countryList)):
+                if countryList[i] == 0 and countrylist[i] in typelist and countrylist[i] != 'EU':
+                    EUabntrans.append(countrylist[i])
+                    tem="EU <-" + countrylist[i]
+                    confilactintransfer.append(tem)
+        if casecountry == 'US':
+            countryList = dataTransfermatrix[1]
+            for i in range(len(countryList)):
+                if countryList[i] == 0 and countrylist[i] in typelist and countrylist[i] != 'US':
+                    EUabntrans.append(countrylist[i])
+                    tem = "US <-" + countrylist[i]
+                    confilactintransfer.append(tem)
+        if casecountry == 'UK':
+            countryList = dataTransfermatrix[2]
+            for i in range(len(countryList)):
+                if countryList[i] == 0 and countrylist[i] in typelist and countrylist[i] != 'UK':
+                    EUabntrans.append(countrylist[i])
+                    tem = "UK <-" + countrylist[i]
+                    confilactintransfer.append(tem)
+        if casecountry == 'CHINA':
+            countryList = dataTransfermatrix[3]
+            for i in range(len(countryList)):
+                if countryList[i] == 0 and countrylist[i] in typelist and countrylist[i] != 'CHINA':
+                    EUabntrans.append(countrylist[i])
+                    tem = "CHINA <-" + countrylist[i]
+                    confilactintransfer.append(tem)
+        if casecountry == 'RUSSIAN':
+            countryList = dataTransfermatrix[4]
+            for i in range(len(countryList)):
+                if countryList[i] == 0 and countrylist[i] in typelist and countrylist[i] != 'RUSSIAN':
+                    EUabntrans.append(countrylist[i])
+                    tem = "RUSSIAN <-" + countrylist[i]
+                    confilactintransfer.append(tem)
+        if casecountry == 'INDIA':
+            countryList = dataTransfermatrix[5]
+            for i in range(len(countryList)):
+                if countryList[i] == 0 and countrylist[i] in typelist and countrylist[i] != 'INDIA':
+                    EUabntrans.append(countrylist[i])
+                    tem = "INDIA <-" + countrylist[i]
+                    confilactintransfer.append(tem)
+
     currentuser = request.session.get("username")
+
     return render(request, 'analyzeCase.html', {'user': currentuser,'caseName':caseName,'Evidence':caseEvidece,
                                                 'Source':caseSource,'Elen':len(caseEvidece),'Slen':len(caseSource),
-                                                'Partic':Participants})
+                                                'Partic':Participants,'typelist':typelist,'confilactintransfer':confilactintransfer})
