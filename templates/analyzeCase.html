@@ -130,6 +130,19 @@
                                             <h4><span class="coloring">{{ p }}</span></h4>
                                </div>
                             {% endfor %}
+                                <hr/>
+                                <hr/>
+                                <h4>Legal feasibility advice</h4>
+                                <h5>Your case involves the following countries:<span class="coloring">{% for c in typelist %} {{ c }} {% endfor %}</span></h5>
+                                <h6 style="color: coral">Potential data transfer conflict(Arrows represent the direction of data flow):</h6>
+                                {% if not confilactintransfer  %}
+                                    <p style="color: #4CAF50">This case do not have data transfer conflict</p>
+                                {% endif %}
+                                {% if confilactintransfer != NULL %}
+                                    {% for c in confilactintransfer %}
+                                    <p style="color: #eb4a4c">{{ c }}</p>
+                                    {% endfor %}
+                                {% endif %}
                             </div>
 						</div>
 					</div>
