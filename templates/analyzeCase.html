@@ -115,19 +115,19 @@
                                 <h6>There are {{ Elen }} pieces of evidence in the current case,as following:</h6>
                             {% for e in Evidence %}
                             <div class="list_inner">
-                                            <h4><span class="coloring">{{ e.EvidenceName }}</span></h4>
+                                            <h6><span class="coloring">{{ e.EvidenceName }}</span></h6>
                             </div>
                             {% endfor %}
                             <h6>There are {{ Slen }} pieces of source in the current case,as following:</h6>
                             {% for s in Source %}
                             <div class="list_inner">
-                                            <h4><span class="coloring">{{ s.SourceName }}</span></h4>
+                                            <h6><span class="coloring">{{ s.SourceName }}</span></h6>
                             </div>
                             {% endfor %}
                                 <h6>The case is currently completed by the following participants:</h6>
                             {% for p in Partic %}
                                 <div class="list_inner">
-                                            <h4><span class="coloring">{{ p }}</span></h4>
+                                            <h6><span class="coloring">{{ p }}</span></h6>
                                </div>
                             {% endfor %}
                                 <hr/>
@@ -143,11 +143,142 @@
                                     <p style="color: #eb4a4c">{{ c }}</p>
                                     {% endfor %}
                                 {% endif %}
+                                <hr/>
+                                <hr/>
+
+                                <h4>key Disclosure</h4>
+                                <h6>If there is an encrypted source in the case, you can seek key disclosure based on this advice</h6>
+                                <br/>
+                             {% if Slen == 0  %}
+                                 <p style="color: #F52225">No data sources available for analysis, please add first</p>
+                             {% endif %}
+                            <!-- Eu -->
+                            {% if lconfilactinkeyEU != 0 %}
+                                <h5 style="color: #acacac">Source located in EU:</h5>
+                             {% for k in confilactinkeyEU %}
+                                 <p style="color: #3A00FF">{{ k }}</p>
+                             {% endfor %}
+                                <p class="coloring">Note that the EU does not have current data disclosure laws, so please refer to Member country legislation provided here:</p>
+                                <p style="color: #4CAF50"> you are empowered to request keys from individuals to disclusure In:<span style="color: #4CAF50">Netherlands, Ireland, France, Finland, Belgium</span></p>
+                                <br/>
+                            {% endif %}
+                            <!-- US -->
+                            {% if lconfilactinkeyUS != 0 %}
+                                <h5 style="color: #acacac">Source located in US:</h5>
+                             {% for k in confilactinkeyUS %}
+                                 <p style="color: #3A00FF">{{ k }}</p>
+                             {% endfor %}
+                                <p class="coloring">You are NOT empowered to request keys from individuals to disclusure,cause The Fifth Amendment to the U.S. Constitution protects witnesses from self-incrimination</p>
+                                <br/>
+                            {% endif %}
+                            <!-- UK -->
+                            {% if lconfilactinkeyUK != 0 %}
+                                <h5 style="color: #acacac">Source located in UK:</h5>
+                             {% for k in confilactinkeyUK %}
+                                 <p style="color: #3A00FF">{{ k }}</p>
+                             {% endfor %}
+                                <p style="color: #4CAF50">You are empowered to request keys from individuals to disclusure,cause The RIPA(Regulation of Investigatory Powers Act (2000)) gives you this right</p>
+                                <br/>
+                            {% endif %}
+                            <!--CHINA -->
+                            {% if lconfilactinkeyCHINA != 0 %}
+                                <h5 style="color: #acacac">Source located in CHINA:</h5>
+                             {% for k in confilactinkeyCHINA %}
+                                 <p style="color: #3A00FF">{{ k }}</p>
+                             {% endfor %}
+                                <p class="coloring">You are NOT empowered to request keys from individuals to disclusure,cause According to the Constitution of the People's Republic of China, no public authority or investigative agency can force citizens to disclose keys</p>
+                                <br/>
+                            {% endif %}
+                            <!--RUSSIAN -->
+                            {% if lconfilactinkeyRUSSIAN != 0 %}
+                                <h5 style="color: #acacac">Source located in RUSSIAN:</h5>
+                             {% for k in confilactinkeyRUSSIAN %}
+                                 <p style="color: #3A00FF">{{ k }}</p>
+                             {% endfor %}
+                                <p style="color: #4CAF50">You are empowered to request keys from individuals to disclusure,cause Under data localization laws, investigative agencies are able to automatically access encryption keys to decrypt user devices without authorization</p>
+                                <br/>
+                            {% endif %}
+                            <!--INDIA -->
+                            {% if lconfilactinkeyINDIA != 0 %}
+                                <h5 style="color: #acacac">Source located in INDIA:</h5>
+                             {% for k in confilactinkeyINDIA %}
+                                 <p style="color: #3A00FF">{{ k }}</p>
+                             {% endfor %}
+                                <p style="color: #4CAF50">You are empowered to request keys from individuals to disclusure,cause This power is given to you under the Information Technology (Amendment) Act 2008</p>
+                                <br/>
+                            {% endif %}
+                               <hr/>
+                               <hr/>
+                                <h4>Handle Privacy:</h4>
+                                <p>Since the current legal system is still ambiguous about the scope of digital investigations, this recommendation defaults that all personal privacy data is within the scope of forensics, and is committed to respecting personal privacy to the greatest extent possible in the process of obtaining evidence</p>
+                                <br/>
+                             {% if Slen == 0  %}
+                                 <p style="color: #F52225">No data sources available for analysis, please add first</p>
+                             {% endif %}
+                            <!-- Eu -->
+                            {% if lconfilactinkeyEU != 0 %}
+                                <h5 style="color: #acacac">Source located in EU:</h5>
+                             {% for k in confilactinkeyEU %}
+                                 <p style="color: #3A00FF">{{ k }}</p>
+                             {% endfor %}
+                                <p class="coloring">Processing this private source requires EXPRESS CONSENT of individual</p>
+                                <p style="color: #4CAF50">However, the GDPR will not prevent law enforcement agencies performing statutory law enforcement functions from accessing personal data, and you can seek their help</p>
+                                <br/>
+                            {% endif %}
+                            <!-- US -->
+                            {% if lconfilactinkeyUS != 0 %}
+                                <h5 style="color: #acacac">Source located in US:</h5>
+                             {% for k in confilactinkeyUS %}
+                                 <p style="color: #3A00FF">{{ k }}</p>
+                             {% endfor %}
+                                <p class="coloring">Processing this private source requires EXPRESS CONSENT of individual</p>
+                                 <p style="color: #4CAF50">In order not to infringe on personal privacy, please seek the help of Law enforcement agencies in US. They can obtain private data of individuals with a search warrant.</p>
+                                <br/>
+                            {% endif %}
+                            <!-- UK -->
+                            {% if lconfilactinkeyUK != 0 %}
+                                <h5 style="color: #acacac">Source located in UK:</h5>
+                             {% for k in confilactinkeyUK %}
+                                 <p style="color: #3A00FF">{{ k }}</p>
+                             {% endfor %}
+                                <p class="coloring">Processing this private source requires EXPRESS CONSENT of individual，accourding to Data Protection Act 2018</p>
+                                <p style="color: #4CAF50">equivalent to the European Union, law enforcement agencies can performing statutory law enforcement functions from accessing personal data, and you can seek their help</p>
+                                <br/>
+                            {% endif %}
+                            <!--CHINA -->
+                            {% if lconfilactinkeyCHINA != 0 %}
+                                <h5 style="color: #acacac">Source located in CHINA:</h5>
+                             {% for k in confilactinkeyCHINA %}
+                                 <p style="color: #3A00FF">{{ k }}</p>
+                             {% endfor %}
+                                <p class="coloring">Processing this private source requires EXPRESS CONSENT of individual and Chinese official authorization</p>
+                                <p style="color: #4CAF50">In order not to infringe on personal privacy, please seek the help of Chinese investigative agencies. They will not infringe on citizens' privacy rights when collecting and processing private information.</p>
+                                <br/>
+                            {% endif %}
+                            <!--RUSSIAN -->
+                            {% if lconfilactinkeyRUSSIAN != 0 %}
+                                <h5 style="color: #acacac">Source located in RUSSIAN:</h5>
+                             {% for k in confilactinkeyRUSSIAN %}
+                                 <p style="color: #3A00FF">{{ k }}</p>
+                             {% endfor %}
+                                <p class="coloring">Processing this private source requires WRITTEN CONSENT of the relevant data subject，cause Federal Law No.152-FZ，PD Law expressly stipulated</p>
+                                <p style="color: #4CAF50">In order not to infringe on personal privacy, please seek the help of Russian investigative agencies. They will not infringe on citizens' privacy rights when collecting and processing private information.</p>
+                                <br/>
+                            {% endif %}
+                            <!--INDIA -->
+                            {% if lconfilactinkeyINDIA != 0 %}
+                                <h5 style="color: #acacac">Source located in INDIA:</h5>
+                             {% for k in confilactinkeyINDIA %}
+                                 <p style="color: #3A00FF">{{ k }}</p>
+                             {% endfor %}
+                                <p class="coloring">Processing this private source requires EXPRESS CONSENT of individual,cause Personal Data Protection Bill 2019 expressly stipulated</p>
+                                <p style="color: #4CAF50">In order not to infringe on personal privacy, please seek the help of India investigative agencies. They will not infringe on citizens' privacy rights when collecting and processing private information.</p>
+                                <br/>
+                            {% endif %}
                             </div>
 						</div>
 					</div>
                 </div>
-
         </div>
 </div>
 <!-- SCRIPTS -->
