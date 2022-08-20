@@ -60,4 +60,26 @@ urlpatterns = [
     path('DeleteEvidence/',views.DeleteEvidence,name='/DeleteEvidence/'),
     path('DeleteSource/',views.DeleteSource,name='/DeleteSource/'),
     path('AnalyzeMode/',views.AnalyzeMode,name='/AnalyzeMode/'),
+
+    path('UpdateCase/',views.UpdateCase,name='/UpdateCase/'),
+    path('UpdateCaseSubmit/',views.UpdateCaseSubmit,name='/UpdateCaseSubmit/'),
+    path('UpdateEvidence/',views.UpdateEvidence,name='/UpdateEvidence/'),
+    path('UpdateEvidenceSubmit/',views.UpdateEvidenceSubmit,name='/UpdateEvidenceSubmit/'),
+    path('UpdateSource/',views.UpdateSource,name='/UpdateSource/'),
+    path('UpdateSourceSubmit/',views.UpdateSourceSubmit,name='/UpdateSourceSubmit/'),
+
+    path('Authorizationsumbit/',views.Authorizationsumbit,name='/Authorizationsumbit/'),
+    path('authorsummit/',views.authorsummit,name='/authorsummit/'),
+    path('warrantsumbit/',views.warrantsumbit,name='/warrantsumbit/'),
+    path('wsummit/',views.wsummit,name='/wsummit/'),
+    path('justificationsumbit/',views.justificationsumbit,name='/justificationsumbit/'),
+    path('jsummit/',views.jsummit,name='/jsummit/'),
+
+    path('download/',views.download,name='/download/'),
+    path('downloadw/',views.downloadw,name='/downloadw/'),
+    path('downloadj/',views.downloadj,name='/downloadj/'),
+    path('downloada/',views.downloada,name='/downloada/'),
+    path('clearW/',views.clearW,name='/clearW/'),
+    path('clearAu/',views.clearAu,name='/clearAu/'),
+    path('clearJ/',views.clearJ,name='/clearJ/'),
 ]

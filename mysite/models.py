@@ -31,6 +31,7 @@ class SetUpCases(models.Model):
     caseUserName = models.CharField(max_length=32)
     UserInputId = models.CharField(max_length=32)
     caseName = models.CharField(max_length=32)
+    caseOriginCountry = models.CharField(max_length=32)
     caseScope = models.CharField(max_length=128)
     caseInv = models.CharField(max_length=128)
     caseInvEmail = models.CharField(max_length=128)
@@ -47,6 +48,7 @@ class Evidence(models.Model):
     Principal = models.CharField(max_length=32)
     Source = models.CharField(max_length=32)
     EvidenceLoc = models.CharField(max_length=32)
+    Eviletterpath = models.CharField(max_length=100)
     EvidenceSummary = models.CharField(max_length=1000)
 
 
@@ -68,4 +70,7 @@ class Source(models.Model):
     Principal = models.CharField(max_length=32)
     SerialNumber =models.CharField(max_length=128)
     AcquTool = models.CharField(max_length= 32)
+    Attachment = models.CharField(max_length=100)
 
+    warrant = models.CharField(max_length=100)
+    justification = models.CharField(max_length=100)

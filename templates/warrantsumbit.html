@@ -11,17 +11,12 @@
 <!--<link rel="stylesheet" type="text/css" href="/static/CSS/plugins.css" /> -->
 <link rel="stylesheet" type="text/css" href="/static/CSS/style2.css" />
 <!--<script type="text/javascript" src="/static/js/modernizr.custom.js"></script>-->
-<script type="text/javascript">
-    function clickToshowInfor() {
-        var object=document.getElementById("{{ c.caseId }}")
-        alert(object.id)
-    }
-</script>
+
 </head>
 <body>
 <div class="edrea_tm_all_wrap" data-magic-cursor="show" data-enter="fadeInUp" data-exit="">
 		<div class="waves"></div>
-        <!-- LOGO -->
+        <!-- logo -->
 		<div class="edrea_tm_topbar">
 			<div class="topbar_inner">
 				<div class="logo">
@@ -29,18 +24,16 @@
 				</div>
 			</div>
 		</div>
-        <!-- BAR -->
+        <!-- bar -->
 		<div class="edrea_tm_mobile_menu">
 			<div class="inner">
 				<div class="menu_list">
 					<ul class="transition_link">
 						<li><a href="/homepage/">Home</a></li>
 						<li><a href="/patternpage/">pattern</a></li>
-						<li class="active"><a href="#">cases management</a></li>
-						<li><a href="/contact/">feedback</a></li>
-                        <li>Hello <span class="coloring">{{user}} </span>
-							<a href="/signout/" style="color: #4481eb;">Sign Out</a>
-						</li>
+						<li class="active"><a href="/cases/">cases management</a></li>
+						<li><a href="/contact">Contact and feedback</a></li>
+                        <li>Hello {{user}} </li>
 					</ul>
 				</div>
 			</div>
@@ -57,7 +50,7 @@
 						<li><a href="/homepage/">Home</a></li>
 						<li><a href="/patternpage/">pattern</a></li>
 						<li class="active"><a href="/cases/">cases management</a></li>
-						<li><a href="/contact/">Contact and feedback</a></li>
+						<li><a href="/contact/">feedback</a></li>
                         <li>Hello <span class="coloring">{{user}} </span>
 							<a href="/signout/" style="color: #4481eb;">Sign Out</a>
 						</li>
@@ -71,9 +64,6 @@
 		<div class="edrea_tm_section active" id="input">
 				<div class="section_inner">
 					<div class="edrea_tm_contact">
-						<div class="edrea_tm_main_title">
-							<h3>You are creating a new Evidence for:<span class="coloring">{{ caseName }}</span></h3>
-						</div>
 						<div class="wrapper">
 							<div class="left">
 								<ul>
@@ -94,7 +84,7 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Evidence/">Evidence</a>
+							                <a href="/Evidence/">Avidence</a>
 						                    </div>
 										</div>
 									</li>
@@ -107,68 +97,29 @@
 									</li>
 								</ul>
 							</div>
-							<div class="right">
-                            <div class="edrea_tm_main_title">
-						    </div>
+							<div class="right" id="input">
+                                {% if type == 'Au' %}
+                                <h5>Submit your authorization here:</h5>
+                                {% elif type == 'w' %}
+                                <h5>Submit your warrant here:</h5>
+                                {% endif %}
                                 <div class="fields">
-                                        <form action="/colNewEvidenceSubmit/" method="post" class="contact_form">
-											<ul>
-                                                <li>
-                                                     <h6>Evidence Name:</h6>
-													<div class="list_inner">
-														<input id="EviName" name="EviName" type="text" placeholder="Name" autocomplete="off">
-													</div>
-												</li>
-                                                <li>
-                                                    <h6>Evidence Type</h6>
-                                                    <div class="list_inner">
-													<select id="22" name="type" multip="" style="width:180px;height: 30px;" tip="">
-                                                        <option value="" style="">---Select---</option>
-                                                        <option value="Device" style="">Device</option>
-                                                        <option value="Confession" style="">Confession</option>
-                                                        <option value="Appraisal conclusion" style="">Appraisal conclusion</option>
-                                                        <option hidden="" value=""></option>
-                                                    </select>
-                                                    </div>
-												</li>
-                                                <li>
-                                                    <h6>Select evidence location</h6>
-													<div class="list_inner">
-                                                        {% for i in evidencescope %}
-														<p>
-                                                             {{ i }} <input type="radio" name="loc" value="{{ i }}" />
-                                                        </p>
-                                                        {% endfor %}
-													</div>
-												</li>
-                                                <li>
-                                                     <h6>Principal: {{ user }} <span class="coloring">(You are adding evidence to other people's case)<span/></h6>
-												</li>
-                                                <li>
-                                                    <h6>Evidence Summary:</h6>
-                                                    <div class="last">
-											        <textarea id="message" name="summary" placeholder="a short summry to this case(max 1000 words)"></textarea>
-										            </div>
-												</li>
-
-                                            </ul>
-										<div class="edrea_tm_button">
-											<input type="submit" class="btn" value="Submit" />
+                                    <form action="/wsummit/" class="contact_form" method="post" enctype="multipart/form-data">
+                                    <input type = "file"  placeholder = "" name = "files" />
+                                       <div class="edrea_tm_button">
+											<input type="submit" class="btn" value="submit" />
 										</div>
-									</form>
+                                    </form>
                                 </div>
                             </div>
 						</div>
 					</div>
                 </div>
-
         </div>
 </div>
 <!-- SCRIPTS -->
 <script src="/static/js/jquery.js"></script>
 <script src="/static/js/plugins.js"></script>
-<script src="/static/js/script.js"></script>
-
 <!-- /SCRIPTS -->
 
 </body>

@@ -94,7 +94,7 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Evidence/">Avidence</a>
+							                <a href="/Evidence/">Evidence</a>
 						                    </div>
 										</div>
 									</li>
@@ -122,10 +122,7 @@
 						    </div>
                              {% for s in SourceList %}
                                         <div class="list_inner">
-                                            <h4><span style="color: chocolate">{{ s.SourceName }} </span> </h4>
-                                            <h5>{% if s.Private != "1" %} <span style="color: #4CAF50">-- (Publicly available plaintext resources) <span/> {% endif %}</h5>
-                                            <h5>{% if s.Private == "1" %} <span class="coloring">(PRIVATE SOURCE) <span/> {% endif %}</h5>
-                                            <h6>{% if s.Encryptionstatus == "1" %} <span class="coloring">(The source is encrypted and requires key disclosure) <span/>{% endif %}</h6>
+                                            <h4><span style="color: chocolate">Source Name: {{ s.SourceName }} </span> </h4>
                                                 <div class="text_hiden" id="hidenDiv">
                                                 <p><span style="color: aqua">Principal:</span>{{ s.Principal }} </p>
                                                     <p><span style="color: chocolate">Type:</span>{{ s.SourceType }}</p>
@@ -133,11 +130,77 @@
                                                     <p><span style="color: chocolate">Model:</span>{{ s.Model }}</p>
                                                     <p><span style="color: chocolate">System:</span>{{ s.System }}</p>
                                                     <p><span style="color: chocolate">SerialNumber:</span>{{ s.SerialNumber }}</p>
+                                                    <p><span style="color: chocolate">Attachment:</span>{% if s.Attachment == '0' %} No attachment file{% else %} <a style="color: #4CAF50" href="/downloada/?sid={{ s.SourceId }}">{{ s.Attachment }}</a>{% endif %} </p>
                                                 </div>
+                                            <hr/>
+                                            <h5>Automatic Analysis:</h5>
+                                            {% if s.Encryptionstatus == "1" and flag == 0 %}
+                                                <h6 style="color: #F52225">1.Key Disclosure Legality：&#10006;</h6>
+                                                <p><span class="coloring">The source is in a jurisdiction where the suspect is exempt from self-incrimination,forcing suspects to provide keys is illegal,suggent solution:</span></p>
+                                                <p>1.Use the 'Delete' button below to exclude this source</p>
+                                                <p>2.If the wrong legal jurisdiction is entered, update the geographic location of Evidence<a href="/ShowCaseEvidence/?caseid={{ cid }}"  style="color:white; background-color: red">Back to evidence</a></p>
+                                                <p>3.In case of a typo of encryptonstatus, use the 'Edit' button below to change the source to unencrypted</p>
+                                            {% elif s.Encryptionstatus == '1' and flag == 1 and s.warrant == "0" %}
+                                                <h6 style="color: #ff7a06">1.Key Disclosure Legality：&#65533; </h6>
+                                                <p style="color: #ff7a06">The source is in a jurisdiction allows mandatory key disclosure,suggent solution:</p>
+                                                 <p>1.Use the 'Delete' button below to exclude this source</p>
+                                                 <p>2.Submit a warrant-><a href="/warrantsumbit/?sid={{ s.SourceId }}">Sumit
+                                                        </a></p>
+                                                <p>3.In case of a typo, use the 'Edit' button below to change the source to unencrypted</p>
+                                            {% elif s.Encryptionstatus == '1' and flag == 1  and s.warrant != "0" %}
+                                                 <h6 style="color: greenyellow">1.Key Disclosure Legality：&#65533;The source is encrypted，but you have obtained warrant for key discloure:</h6>
+                                                <p>You can resubmit warrant documents: <a style="color: #4CAF50" href="/warrantsumbit/?sid={{ s.SourceId }}">ReSumit
+                                                </a></p>
+                                                <p>Or download current warrant to check: <a style="color: #4CAF50" href="/downloadw/?sid={{ s.SourceId }}">Download</a></p>
+                                                <p>Or clear warrant: <a style="color: #4CAF50" href="/clearW/?sid={{ s.SourceId }}">Clear
+                                                </a></p>
+                                            {% elif s.Encryptionstatus == '1' and flag == -1 and s.warrant == "0" %}
+                                                <h6 style="color: #ff7a06">1.Key Disclosure Legality：&#65533; </h6>
+                                                <p style="color: #ff7a06">The source of evidence is the EU region, which does not have uniform key disclosure regulations,suggent solution:</p>
+                                                 <p>1.Use the 'Delete' button below to exclude this source</p>
+                                                 <p style="color: #4CAF50">2.If the source of evidence is located in the following countries allow forced decryption:Netherlands, Ireland, France, Belgium, Finland，submit a warrant-><a href="/warrantsumbit/?sid={{ s.SourceId }}">Sumit
+                                                        </a></p>
+                                                <p style="color: #F52225">3.You cannot compel decryption of this source to obtain data if it is not within the above countries，-></p>
+                                                   1.Use the 'Delete' button below to exclude this source.2.If the wrong legal jurisdiction is entered, update the geographic location of Evidence<a href="/ShowCaseEvidence/?caseid={{ cid }}"  style="color:white; background-color: red">Back to evidence</a></p>
+                                            {% elif s.Encryptionstatus == '1' and flag == -1 and s.warrant != "0" %}
+                                                <h6 style="color: greenyellow">1.Key Disclosure Legality：&#65533;The source is encrypted，but you have obtained warrant for key discloure:</h6>
+                                                <p>You can resubmit warrant documents: <a style="color: #4CAF50" href="/warrantsumbit/?sid={{ s.SourceId }}">ReSumit
+                                                </a></p>
+                                                <p>Or download current warrant to check: <a style="color: #4CAF50" href="/downloadw/?sid={{ s.SourceId }}">Download</a></p>
+                                                <p>Or clear warrant: <a style="color: #4CAF50" href="/clearW/?sid={{ s.SourceId }}">Clear
+                                                </a></p>
+                                            {% elif s.Encryptionstatus == '0' %}
+                                                 <h6 style="color: greenyellow">1.Key Disclosure Legality：&#10004;</h6>
+                                                 <p><span style="color: greenyellow">The source is in clear text, no key is required to decrypt</span></p>
+                                            {% endif %}
+
+                                            <hr/>
+
+                                            {% if s.Private == '0' %}
+                                                 <h6 style="color: greenyellow">2.Privacy Legality：&#10004;</h6>
+                                                 <p><span style="color: greenyellow">The source is marked as public,no privacy concerns</span></p>
+                                            {% elif s.Private == '1' and s.justification == '0' %}
+                                                <h6 style="color: #F52225">2.Privacy Legality：&#10006;</h6>
+                                                 <p style="color: brown">The source is marked as private,Proof of justification should be statement advance for judicial reference prior to any extraction and inspection operations</h6>
+                                                 <p>Suggent solution:</p>
+                                                 <p>1.Use the 'Delete' button below to exclude this source</p>
+                                                 <p>2.Statement a justification-><a href="/justificationsumbit/?sid={{ s.SourceId }}">Sumit
+                                                        </a></p>
+                                                <p>3.In case of a typo, use the 'Edit' button below to change the source to non-private</p>
+                                             {% elif s.Private == '1' and s.justification != '0' %}
+                                                <h6 style="color: greenyellow">2.Privacy Legality：&#65533;The source is marked as private，but you have Statement a justification for privacy check :</h6>
+                                                <p>You can resubmit justification :<a style="color: #4CAF50" href="/justificationsumbit/?sid={{ s.SourceId }}">ReSumit
+                                                </a></p>
+                                                <p>Or download current warrant to check: <a style="color: #4CAF50" href="/downloadj/?sid={{ s.SourceId }}">Download</a></p>
+                                                <p>Or clear warrant: <a style="color: #4CAF50" href="/clearJ/?sid={{ s.SourceId }}">Clear
+                                                </a></p>
+                                            {% endif %}
+                                            <hr/>
                                         <div class="edrea_tm_button transition_link">
-                                               <a href="/DeleteSource/?sid={{ s.SourceId }}">Delelte</a>
+                                               <a href="/DeleteSource/?sid={{ s.SourceId }}">Delelte</a><a href="/UpdateSource/?sid={{ s.SourceId }}">Edit</a>
                                         </div>
 										</div>
+                                        <hr style="border: 5px solid grey;"/>
                                     {% endfor %}
                             <div class="list_inner">
                             <div class="edrea_tm_button transition_link">

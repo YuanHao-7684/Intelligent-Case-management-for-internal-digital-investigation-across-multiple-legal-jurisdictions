@@ -94,7 +94,7 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Evidence/">Avidence</a>
+							                <a href="/Evidence/">Evidence</a>
 						                    </div>
 										</div>
 									</li>
@@ -120,20 +120,59 @@
                                 {% endif %}
                              <p style="color: #F52225">Note：Please use the delete button carefully, it will clear Evidence itself and all the  sources related</p>
 						    </div>
-                                 {% for e in evidences %}
+                                 {% for e,flag,p in evidences %}
                                         <div class="list_inner">
-                                            <h4><span style="color: aqua">{{ e.EvidenceName }}</span></h4>
+                                            <h4><span style="color: aqua">Evidence Name :{{ e.EvidenceName }}</span></h4>
+                                            <h5><span style="color: #4CAF50">{% if p == 0 %} All sources are safe </span>{% elif p == -1 %}<span style="color: #ffec0e">The current evidence does not set any source</span>{% else %}<span style="color: #F52225">Alert: {{ p }} of source have issue,use 'Source' button to check</span> {% endif %}</h5>
                                                 <div class="text_hiden" id="hidenDiv">
                                                 <p><span style="color: aqua">Principal:</span>{{ e.Principal }} </p>
                                                     <p><span style="color: aqua">Evidence Type:</span>{{ e.EvidenceType }}</p>
                                                     <p><span style="color: aqua">Evidence location:</span>{{ e.EvidenceLoc }}</p>
                                                     <p><span style="color: aqua">Evidence Summary:</span></p>
                                                     <textarea name="" rows="10" cols="30" >{{ e.EvidenceSummary }}</textarea>
+                                                    <hr/>
+                                                    <h5>Automatic Analysis:</h5>
+                                                        {% if flag == '1' %}
+                                                        <p style="color: greenyellow">&#10004;</p>
+                                                    <p><span style="color: greenyellow">This evidence can be safely transmitted to case origin country</span></p>
+                                                        {% elif flag == '0' %}
+                                                         <p style="color: #F52225">&#10006;</p>
+                                                    <p><span style="color: #F52225">Transmission of this evidence may be risky,suggest soltion:</span>
+                                                         <p>1.If it is wrong input，use the 'Edit' button below to change evidence location:current case orgin country/area is {{ ocountry }}
+                                                             Evidence could be legally transferred if it is located in:
+                                                            {% if ocountry == "EU" %}
+                                                                <span style="color: #67ff12">  EU,UK,US,RUSSIAN</span>
+                                                                {% elif ocountry == "US" %}
+                                                                <span style="color: #67ff12">  US</span>
+                                                                {% elif ocountry == "UK" %}
+                                                                <span style="color: #67ff12">  EU,US,UK</span>
+                                                                {% elif ocountry == "CHINA" %}
+                                                                <span style="color: #67ff12">  US,CHINA</span>
+                                                                {% elif ocountry == "RUSSIAN" %}
+                                                                <span style="color: #67ff12">  RUSSIAN,EU,US</span>
+                                                                {% elif ocountry == "INDIA" %}
+                                                                <span style="color: #67ff12">  INDIA,US</span>
+                                                                {% endif %}
+                                                         </p>
+                                                        <p>2.Submit Authorization Letter-><a href="/Authorizationsumbit/?evidenceid={{ e.EvidenceId }}&caseId={{ caseId }}">Sumit
+                                                        </a></p>
+                                                            <p>3.Or change case origin country on case page -> <a href="/View/"  style="color:white; background-color: red">Back to my cases</a></p>
+                                                        </a></p>
+                                                        {% else %}
+                                                        <p style="color: greenyellow">&#65533; You have obtained data transfer authorization for this evidence </p>
+                                                        <p>You can resubmit authorization documents<a style="color: #4CAF50" href="/Authorizationsumbit/?evidenceid={{ e.EvidenceId }}&caseId={{ caseId }}">ReSumit
+                                                        </a></p>
+                                                        <p>Or download current document<a style="color: #4CAF50" href="/download/?evidenceid={{ e.EvidenceId }}">Download</a></p>
+                                                        <p>Or clear this authorization<a style="color: #4CAF50" href="/clearAu/?evidenceid={{ e.EvidenceId }}">Clear
+                                                        </a></p>
+                                                    {% endif %}
                                                 </div>
+                                                <hr/>
                                         <div class="edrea_tm_button transition_link">
-                                                <a href="/ShowEvidenceSource/?evidenceid={{ e.EvidenceId }}">Source</a><a href="/DeleteEvidence/?evidenceid={{ e.EvidenceId }}">Delelte</a>
+                                                <a href="/ShowEvidenceSource/?evidenceid={{ e.EvidenceId }}">Source</a><a href="/DeleteEvidence/?evidenceid={{ e.EvidenceId }}">Delelte</a><a href="/UpdateEvidence/?evidenceid={{ e.EvidenceId }}">Edit</a>
                                             </div>
 										</div>
+                                     <hr style="border: 5px solid grey;"/>
                                     {% endfor %}
                                   <br>
                             <div class="edrea_tm_button transition_link">

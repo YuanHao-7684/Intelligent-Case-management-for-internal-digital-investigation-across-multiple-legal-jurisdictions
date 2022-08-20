@@ -109,7 +109,7 @@
                             <div class="edrea_tm_main_title">
 						    </div>
                                 <div class="fields">
-                                        <form action="/NewSourceSubmit/?evidenceId={{ eid }}" method="post" class="contact_form">
+                                        <form action="/NewSourceSubmit/?evidenceId={{ eid }}" method="post" class="contact_form" enctype="multipart/form-data">
 											<ul>
                                                 <li>
                                                     <h6>Source Name:</h6>
@@ -170,9 +170,15 @@
 													</div>
 												</li>
                                                  <li>
-                                                   <h6>AcquTool:</h6>
+                                                   <h6>Acquire Tool:</h6>
 													<div class="list_inner">
 														<input id="EviName" name="AcquTool" type="text" placeholder="AcquTool" autocomplete="off">
+													</div>
+												</li>
+                                                <li>
+                                                   <h6>Attachment:</h6>
+													<div class="list_inner">
+														 <input type = "file"  placeholder = "" name = "files" />
 													</div>
 												</li>
                                             </ul>

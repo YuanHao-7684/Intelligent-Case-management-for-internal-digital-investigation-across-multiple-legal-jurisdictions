@@ -95,7 +95,7 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Evidence/">Avidence</a>
+							                <a href="/Evidence/">Evidence</a>
 						                    </div>
 										</div>
 									</li>
@@ -115,21 +115,29 @@
                                 <p style="color: #F52225">Note：Please use the delete button carefully, it will clear the case itself and all the evidence and sources related</p>
 						    </div>
                             <!-- CASE INFOR -->
-                                    {% for c in caselist %}
+                                    {% for c,echeck,scheck in caselist %}
                                         <div class="list_inner">
-                                            <h4><span class="coloring">{{ c.caseName }}</span></h4>
+                                            <h4><span class="coloring">{{ c.caseName }} </span> </h4>
                                              <div class="edrea_tm_button transition_link">
                                                 <a href="/AnalyzeMode/?caseid={{ c.caseId }}">Analyze This Case</a>
                                             </div>
                                                 <div class="text_hiden" id="hidenDiv">
                                                 <P><span class="coloring">Case ID:</span>{{ c.UserInputId }} </P>
                                                 <p><span class="coloring">Case Investigator:</span>{{ c.caseInv }} </p>
+                                                     <p><span class="coloring">Origin Country:</span>{{ c.caseOriginCountry }} </p>
                                                     <p><span class="coloring">Case Scope:</span>{{ c.caseScope | upper }}</p>
                                                     <p><span class="coloring">Case Synopsis:</span></p>
                                                     <textarea name="" rows="10" cols="30" >{{ c.casesynopsis }}</textarea>
                                                 </div>
+                                             <h5>Simple check:</h5>
+                                             <h6>{% if echeck == 0 %}<span style="color: #F52225">&#10006;Have evidence that cannot be safely transmitted {% endif %}</h6>
+                                             <h6>{% if echeck == 1 %}<span style="color: #4CAF50">&#10004;All evidence can be safely transmitted {% endif %}</h6>
+                                             <h6>{% if echeck == -1 %} <span style="color: #ffec0e">&#65533;There is currently no Evidence for this case {% endif %}</h6>
+                                             <h6>{% if scheck == -1 %} <span style="color: #ffec0e">&#65533;There is currently no Source for this case {% endif %}</h6>
+                                             <h6>{% if scheck == 1 %}<span style="color: #F52225">&#10006;There are potentially illegal data sources in this case{% endif %}</h6>
+                                             <h6>{% if scheck == 0 %}<span style="color: #4CAF50">&#10004;All sources respect privacy and data disclosure laws{% endif %}</h6>
                                             <div class="edrea_tm_button transition_link">
-                                                <a href="/ShowCaseEvidence/?caseid={{ c.caseId }}">Evidence</a><a href="/DeleteCase/?caseid={{ c.caseId }}">Delelte</a>
+                                                <a href="/ShowCaseEvidence/?caseid={{ c.caseId }}">Evidence</a><a href="/DeleteCase/?caseid={{ c.caseId }}">Delelte</a><a href="/UpdateCase/?caseid={{ c.caseId }}">Edit</a>
                                             </div>
 										</div>
                                         <hr/>

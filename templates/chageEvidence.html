@@ -37,10 +37,8 @@
 						<li><a href="/homepage/">Home</a></li>
 						<li><a href="/patternpage/">pattern</a></li>
 						<li class="active"><a href="#">cases management</a></li>
-						<li><a href="/contact/">feedback</a></li>
-                        <li>Hello <span class="coloring">{{user}} </span>
-							<a href="/signout/" style="color: #4481eb;">Sign Out</a>
-						</li>
+						<li><a href="#laws">Contact and feedback</a></li>
+                        <li>Hello {{user}} </li>
 					</ul>
 				</div>
 			</div>
@@ -72,7 +70,7 @@
 				<div class="section_inner">
 					<div class="edrea_tm_contact">
 						<div class="edrea_tm_main_title">
-							<h3>You are creating a new Source for Evidence:<span class="coloring">{{ eName }}</span></h3>
+							<h3>You are update Evidence:<span class="coloring">{{ ename }}</span></h3>
 						</div>
 						<div class="wrapper">
 							<div class="left">
@@ -94,7 +92,7 @@
 									<li>
 										<div class="list_inner">
                                             <div class="edrea_tm_button transition_link">
-							                <a href="/Evidence/">Evidence</a>
+							                <a href="/Evidence/">Avidence</a>
 						                    </div>
 										</div>
 									</li>
@@ -111,77 +109,29 @@
                             <div class="edrea_tm_main_title">
 						    </div>
                                 <div class="fields">
-                                        <form action="/colNewSourceSubmit/" method="post" class="contact_form" enctype="multipart/form-data">
+                                        <form action="/UpdateEvidenceSubmit/" method="post" class="contact_form">
 											<ul>
                                                 <li>
-                                                    <h6>Source Name:</h6>
+                                                     <h6>New Evidence Name:</h6>
 													<div class="list_inner">
-														<input id="EviName" name="SName" type="text" placeholder="Name" autocomplete="off">
+														<input id="EviName" name="EviName" type="text" placeholder="Name" autocomplete="off">
 													</div>
 												</li>
                                                 <li>
-                                                    <h6>Source Type:</h6>
-                                                    <div class="list_inner">
-													<select id="22" name="type" multip="" style="width:180px;height: 30px;" tip="">
-                                                        <option value="USB flash drive" style="">USB flash drive</option>
-                                                        <option value="Computer" style="">Computer</option>
-                                                        <option value="Mobile Phone" style="">Mobile Phone</option>
-                                                        <option value="Cloud storage" style="">Cloud Storage</option>
-                                                    </select>
-                                                    </div>
-												</li>
-                                                <li>
-                                                    <h6>Is this resource private?</h6>
+                                                    <h6>Change Evidence Location:</h6>
 													<div class="list_inner">
-                                                        <p> Yes<input type="radio" name="pri" value="1" /></p>
-                                                        <p> No<input type="radio" name="pri" value="0" /></p>
+                                                        {% for i in evidencescope %}
+														<p>
+                                                             {{ i }} <input type="radio" name="loc" value="{{ i }}" />
+                                                        </p>
+                                                        {% endfor %}
 													</div>
 												</li>
                                                 <li>
-                                                    <h6>Data status:</h6>
-													<div class="list_inner">
-                                                        <p> Encrypted(Decrypt operation required)<input type="radio" name="status" value="1" /></p>
-                                                        <p> Plaintext(No decryption required)<input type="radio" name="status" value="0" /></p>
-													</div>
-												</li>
-                                                <li>
-                                                    <h6>Manufacturer:</h6>
-													<div class="list_inner">
-														<input id="EviName" name="Manufacturer" type="text" placeholder="Manufacturer Name" autocomplete="off">
-													</div>
-												</li>
-                                                <li>
-                                                    <h6>Principal: {{ user }} <span class="coloring">(You are adding source to other people's evidence)<span/></h6>
-												</li>
-                                                <li>
-                                                   <h6>Model:</h6>
-													<div class="list_inner">
-														<input id="EviName" name="Model" type="text" placeholder="Specific Model" autocomplete="off">
-													</div>
-												</li>
-                                                <li>
-                                                   <h6>System:</h6>
-													<div class="list_inner">
-														<input id="EviName" name="System" type="text" placeholder="Operating System" autocomplete="off">
-													</div>
-												</li>
-                                                <li>
-                                                   <h6>SerialNumber:</h6>
-													<div class="list_inner">
-														<input id="EviName" name="SerialNumber" type="text" placeholder="SerialNumber" autocomplete="off">
-													</div>
-												</li>
-                                                 <li>
-                                                   <h6>Acquire Tool:</h6>
-													<div class="list_inner">
-														<input id="EviName" name="AcquTool" type="text" placeholder="AcquTool" autocomplete="off">
-													</div>
-												</li>
-                                                <li>
-                                                   <h6>Attachment:</h6>
-													<div class="list_inner">
-														 <input type = "file"  placeholder = "" name = "files" />
-													</div>
+                                                    <h6>New Evidence Summary:</h6>
+                                                    <div class="last">
+											        <textarea id="message" name="summary" placeholder="a short summry to this case(max 1000 words)"></textarea>
+										            </div>
 												</li>
                                             </ul>
 										<div class="edrea_tm_button">

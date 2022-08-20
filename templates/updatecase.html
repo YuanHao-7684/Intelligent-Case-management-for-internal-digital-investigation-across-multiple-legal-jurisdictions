@@ -65,7 +65,7 @@
 				<div class="section_inner">
 					<div class="edrea_tm_contact">
 						<div class="edrea_tm_main_title">
-							<h3>Quickly build a new case</h3>
+							<h3>Make Changes</h3>
 						</div>
 						<div class="wrapper">
 							<div class="left">
@@ -102,22 +102,16 @@
 							</div>
 							<div class="right">
                                 <div class="fields">
-                                <form action="/NewcaseSubmit/" method="post" class="contact_form">
+                                <form action="/UpdateCaseSubmit/" method="post" class="contact_form">
 											<ul>
 												<li>
-                                                    <h6>Case Name</h6>
+                                                    <h6>Change Case Name</h6>
 													<div class="list_inner">
 														<input id="name" name="Name" type="text" placeholder="Name" autocomplete="off">
 													</div>
 												</li>
-												<li>
-                                                     <h6>Case ID</h6>
-													<div class="list_inner">
-														<input id="ID" name="ID" type="text" placeholder="ID" autocomplete="off">
-													</div>
-												</li>
                                                  <li>
-                                                     <h6>Select Origin Country/Area:</h6>
+                                                     <h6>Change Origin Country/Area:</h6>
 													<div class="list_inner">
 														<p>
                                                              US <input type="radio" name="Origin" value="US" />
@@ -128,22 +122,6 @@
                                                              INDIA <input type="radio" name="Origin" value="INDIA" />
                                                         </p>
 													</div>
-												</li>
-                                                <li>
-                                                     <h6>Select Case involving countries/area</h6>
-													<div class="list_inner">
-														<p>
-                                                             US <input type="checkbox" name="area" value="US" />
-	                                                         UK <input type="checkbox" name="area" value="UK" />
-	                                                         EU <input type="checkbox" name="area" value="EU" />
-	                                                         CHINA <input type="checkbox" name="area" value="CHINA" />
-                                                             RUSSIAN <input type="checkbox" name="area" value="RUSSIAN" />
-                                                             INDIA <input type="checkbox" name="area" value="INDIA" />
-                                                        </p>
-													</div>
-												</li>
-                                                <li>
-                                                     <h6>Case Investigator: {{ user }}</h6>
 												</li>
                                                 <li>
                                                      <h6>Select Type of Case</h6>
